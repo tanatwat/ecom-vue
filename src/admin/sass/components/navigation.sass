@@ -1,0 +1,82 @@
+$nav-bg: #3a3d5a
+
+$link-color: #bcc4ff
+$link-color-active: #fff
+$link-bg-active: #757caf
+
+$dropdown-bg: #e1e5ff
+$dropdown-link: #5b6292
+$dropdown-link-active: #6c7fff
+$dropdown-link-active-bg: #c4d5ff
+
+.menu
+  position: fixed
+  display: block
+  width: 220px
+  height: 100vh
+  padding: 20px 0
+  background: $nav-bg
+  a
+    display: block
+    width: 100%
+    text-align: center
+    text-decoration: none
+    font-size: 1rem
+    padding: 10px 0
+    color: $link-color
+    transition: all .2s ease
+    &:hover, &:focus, &.router-link-active
+      color: $link-color-active
+      background: $link-bg-active
+
+.menu-dropdown
+  background: $dropdown-bg
+  a
+    color: $dropdown-link
+    &:hover, &:focus, &.router-link-active
+      color: $dropdown-link-active
+      background: $dropdown-link-active-bg
+
+.menu .logo
+  max-width: 100%
+  padding: 20px 10px
+  img
+    width: 100%
+
+.mobile-menu
+  display: none
+
+@media (max-width: 768px)
+  .menu
+    display: none
+    .active
+      display: block
+  .mobile-menu
+    display: flex
+    justify-content: space-between
+    padding: 10px
+    background: $nav-bg
+    .logo
+      max-width: 100px
+      height: 30px
+      img
+        width: auto
+        height: 100%
+    .menu-btn
+      color: $link-color
+      cursor: pointer
+      font-size: 1.5em
+      line-height: 30px
+      &:hover, &:focus, &.active
+        color: $link-color-active
+        background: $link-bg-active
+
+@media (max-width: 425px)
+  .menu
+    width: 100%
+    padding: 30px 0
+    top: 50px
+    position: absolute
+    z-index: 9999
+    .logo
+      display: none

@@ -1,0 +1,25 @@
+$dashboard-bg: repeating-linear-gradient(143deg, #5b6292, #4d5177)
+
+.dashboard
+  display: flex
+  justify-content: center
+  position: absolute
+  width: calc(100% - 220px)
+  min-height: 100vh
+  left: 220px
+  background: $dashboard-bg
+
+.container
+  width: 80%
+  padding: 20px 0
+
+@media (max-width: 768px)
+  .dashboard
+    left: 0
+    width: 100%
+  .container
+    width: 90%
+
+@media (max-width: 425px)
+  .container
+    width: 95%

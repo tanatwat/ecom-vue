@@ -1,0 +1,75 @@
+.button
+  position: relative
+  overflow: visible
+  float: none
+  -webkit-box-flex: 0
+  -webkit-flex: 0 auto
+  -ms-flex: 0 auto
+  flex: 0 auto
+  border-radius: 5px
+  -webkit-transition: all 200ms ease
+  transition: all 200ms ease
+  font-size: 1.2em
+  text-align: center
+  text-decoration: none
+  &.secondary
+    -webkit-box-flex: 0
+    -webkit-flex: 0 0 auto
+    -ms-flex: 0 0 auto
+    flex: 0 0 auto
+    border-style: solid
+    border-width: 1px
+    border-color: #d6d6d6
+    background-color: transparent
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fcfcfc), to(#dedede))
+    background-image: linear-gradient(180deg, #fcfcfc, #dedede)
+    color: #3b3b3b
+    &:hover
+      background-image: -webkit-gradient(linear, left top, left bottom, from(#fcfcfc), to(#c4c4c4))
+      background-image: linear-gradient(180deg, #fcfcfc, #c4c4c4)
+      color: #575757
+  &.form-btn
+    min-width: 150px
+    float: none
+    clear: none
+    border-style: solid
+    border-width: 1px
+    border-color: hsla(129.78261, 36.8%, 49.02%, 1)
+    background-color: hsla(109.34579, 47.98%, 56.27%, 1)
+    background-image: -webkit-gradient(linear, left top, left bottom, from(hsla(109.34579, 47.98%, 56.27%, 1)), to(hsla(129.78261, 36.8%, 49.02%, 1)))
+    background-image: linear-gradient(180deg, hsla(109.34579, 47.98%, 56.27%, 1), hsla(129.78261, 36.8%, 49.02%, 1))
+    &:hover
+      background-image: -webkit-gradient(linear, left top, left bottom, from(hsla(109.34579, 52.94%, 57.5%, 1)), to(hsla(129.78261, 46.89%, 36.76%, 1)))
+      background-image: linear-gradient(180deg, hsla(109.34579, 52.94%, 57.5%, 1), hsla(129.78261, 46.89%, 36.76%, 1))
+  &.primary
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#5789ff), to(#4672d8))
+    background-image: linear-gradient(180deg, #5789ff, #4672d8)
+    &:hover
+      background-image: -webkit-gradient(linear, left top, left bottom, from(#5582ec), to(#3761c3))
+      background-image: linear-gradient(180deg, #5582ec, #3761c3)
+
+.button-icon
+  width: 35px
+  height: 35px
+  border-style: solid
+  border-width: 1px
+  border-color: #dedede
+  border-radius: 5px
+  background-color: hsla(208.0, 0%, 95.33%, 1)
+  &.edit
+    border-color: #5789ff
+    background-color: #5789ff
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#5789ff), to(#4d78db))
+    background-image: linear-gradient(180deg, #5789ff, #4d78db)
+    color: #fff
+    &:hover
+      background-image: -webkit-gradient(linear, left top, left bottom, from(#588afd), to(#3c60b4))
+      background-image: linear-gradient(180deg, #588afd, #3c60b4)
+  &.delete
+    border-color: #b91d1d
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ff4242), to(#b91d1d))
+    background-image: linear-gradient(180deg, #ff4242, #b91d1d)
+    color: #fff
+    &:hover
+      background-image: -webkit-gradient(linear, left top, left bottom, from(#e13333), to(#a21a1a))
+      background-image: linear-gradient(180deg, #e13333, #a21a1a)
