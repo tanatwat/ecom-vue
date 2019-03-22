@@ -3,6 +3,7 @@ import Dashboard from '../admin/views/Dashboard.vue'
 import Product from '../admin/views/products/Products.vue'
 import ProductUpload from '../admin/views/products/ProductUpload.vue'
 import Category from '../admin/views/products/Category.vue'
+import CategoryEdit from '../admin/views/products/CategoryEdit.vue'
 import Promotion from '../admin/views/products/Promotion.vue'
 import Stock from '../admin/views/products/Stock.vue'
 
@@ -40,6 +41,11 @@ export default [
       {
         path: 'products/category',
         component: Category,
+      },
+      {
+        path: 'products/category/:category',
+        component: CategoryEdit,
+        name: 'categoryEdit'
       },
       {
         path: 'products/promotions',

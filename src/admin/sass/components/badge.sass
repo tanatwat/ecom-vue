@@ -1,0 +1,43 @@
+.badge
+  display: flex
+  padding: 8px 10px
+  color: #fff
+  justify-content: space-between
+  word-break: break-all
+  border-radius: 5px
+  margin: 5px 0
+  button
+    align-self: center
+    margin-left: 8px
+  &.info
+    background: #209cee
+
+.data-list
+  border: 2px solid #757cb5
+  margin: 10px 0
+  border-radius: 5px
+  .data-title
+    background: #757cb5
+    font-size: 1.2rem
+    padding: 4px 8px
+    margin-bottom: 8px
+    color: #fff
+  .data-text
+    padding: 0 8px
+    font-size: 1rem
+    color: #777
+    .sub
+      padding: 0 10px
+      font-size: .9rem
+      color: #b5b5b5
+  &:last-child
+    margin-bottom: 0
+
+ul.nested-list
+  padding: 4px 8px
+  font-size: 1.2rem
+  li
+    padding-left: 10px
+    color: #777
+    &::before
+      content: '- '

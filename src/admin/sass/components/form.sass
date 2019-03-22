@@ -1,0 +1,74 @@
+input, select, textarea
+  width: 100%
+  padding-left: 8px
+  font-size: 1rem
+  border-radius: 5px
+  border: 1px solid #b5b5b5
+  background: #fff
+  box-shadow: inset 1px 1px 3px 1px #eee
+  &:hover
+    border-color: #6d9ce8
+  &:focus
+    border-color: #52baff
+    outline: none
+    transition: all .2s ease
+    box-shadow: 0 0 5px #0099ff, inset 1px 1px 3px 1px #fff
+
+input, select
+  line-height: 35px
+  height: 35px
+
+textarea
+  min-height: 160px
+  padding: 4px 8px !important
+
+.form-group
+  label
+    color: #555
+    display: block
+    margin-bottom: 5px
+    font-weight: normal
+    font-size: 1rem
+  input, select, textarea
+    margin-bottom: 10px
+    &:last-child
+      margin-bottom: 0
+  .optional
+    display: inline-block
+    padding: 0 5px
+    font-weight: 400
+    font-size: 1rem
+    color: #777
+
+.input-group
+  display: flex
+  > *:first-child
+    border-top-left-radius: 5px
+    border-bottom-left-radius: 5px
+    border-right: none
+  > *:last-child
+    border-top-right-radius: 5px
+    border-bottom-right-radius: 5px
+    border-left: none
+  > *
+    border-radius: 0
+
+.action-wrapper
+  display: flex
+  &.right
+    justify-content: flex-end
+  &.left
+    justify-content: flex-start
+  &.between
+    justify-content: space-between
+  &.v-center
+    align-items: center
+  &.form-submit
+    margin-top: 15px
+  &.has-margin > *
+    margin: 0 5px
+  &.action
+    padding: 8px 0
+    > *
+      margin: 0 5px
+      padding: 0 5px

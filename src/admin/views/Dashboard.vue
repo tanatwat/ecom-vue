@@ -1,6 +1,9 @@
 <template>
   <div class="home">
-    ADMIN HOME
+    <div class="buttons">
+  <a class="button is-primary">Primary</a>
+  <a class="button is-link">Link</a>
+</div>
   </div>
 </template>
 

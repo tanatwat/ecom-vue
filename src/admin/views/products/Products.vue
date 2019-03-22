@@ -1,61 +1,8 @@
 <template lang="html">
 <div>
-    <div class="page-title">
-      <h1 class="page-title-heading">Title</h1><a href="#" class="button secondary w-button">ย้อนกลับ</a>
-    </div>
-    <div><a href="#" class="button primary w-button">ตัวเลือกค้นหา</a></div>
-    <div class="filter">
-      <div class="w-form">
-        <form id="email-form" name="email-form" data-name="Email Form">
-          <div class="w-row">
-            <div class="left-column w-col w-col-6">
-              <div class="form-group">
-                <label for="name-3" class="form-label">Label</label>
-                <input type="text" id="name-2" name="name-2" data-name="Name 2" maxlength="256" class="form-input w-input">
-              </div>
-            </div>
-            <div class="right-column w-col w-col-6">
-              <div class="form-group">
-                <label for="name-3" class="form-label">Label</label>
-                <input type="text" id="name-2" name="name-2" data-name="Name 2" maxlength="256" class="form-input w-input">
-              </div>
-            </div>
-          </div>
-          <div class="w-row">
-            <div class="left-column w-col w-col-6">
-              <div class="form-group">
-                <label for="name-3" class="form-label">Label</label>
-                <input type="text" id="name-2" name="name-2" data-name="Name 2" maxlength="256" class="form-input w-input">
-              </div>
-            </div>
-            <div class="right-column w-col w-col-6">
-              <div class="form-group"><label for="name-3" class="form-label">Label</label><input type="text" id="name-2" name="name-2" data-name="Name 2" maxlength="256" class="form-input w-input"></div>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="text-right"><a href="#" class="button secondary w-button">ล้างการค้นหา</a><a href="#" class="button success w-button">ค้นหา</a></div>
-    </div>
-    <div class="section-wrapper">
-      <h3 class="section-heading">Pagination</h3>
-    </div>
-    <div class="section-wrapper">
-      <h3 class="section-heading">สินค้าภายในร้าน</h3>
-      <div class="w-layout-grid product-grid">
-        <div class="product-card">
-          <div class="product-img-wrapper"><img src="https://d3e54v103j8qbb.cloudfront.net/img/image-placeholder.svg" alt="" class="product-img"></div>
-          <div class="product-details-wrapper"><a href="#" class="product-link">Text Link</a>
-            <div class="product-detail">Category</div>
-            <div class="product-detail discount">Price</div>
-          </div>
-          <div class="product-action-wrapper">
-            <button class="button-icon edit fas fa-pen"></button>
-            <button class="button-icon delete fas fa-trash"></button>
-          </div>
-        </div>
-      </div>
-    </div>
+  <section class="columns">
 
+  </section>
 
   <pagination :meta="meta" v-on:switched="changePage" v-show="products.length"></pagination>
 </div>

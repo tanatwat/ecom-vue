@@ -3,7 +3,7 @@ $dashboard-bg: repeating-linear-gradient(143deg, #5b6292, #4d5177)
 .dashboard
   display: flex
   justify-content: center
-  position: absolute
+  position: relative
   width: calc(100% - 220px)
   min-height: 100vh
   left: 220px
@@ -12,6 +12,21 @@ $dashboard-bg: repeating-linear-gradient(143deg, #5b6292, #4d5177)
 .container
   width: 80%
   padding: 20px 0
+
+.section-heading
+  font-size: 1.2rem
+  font-weight: bold
+  margin-bottom: 4px
+
+.section-wrapper
+  background: #fff
+  border-radius: 5px
+  padding: 18px 10px
+
+.data-wrapper
+  background: #fff
+  border-radius: 5px
+  padding: 8px 10px
 
 @media (max-width: 768px)
   .dashboard

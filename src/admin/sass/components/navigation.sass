@@ -3,11 +3,17 @@ $nav-bg: #3a3d5a
 $link-color: #bcc4ff
 $link-color-active: #fff
 $link-bg-active: #757caf
+$link-color-hover: #dce7ff
+$link-bg-hover: #4b5077
 
+$dropdown-btn-color: #fff
+$dropdown-btn-bg: #5b6292
 $dropdown-bg: #e1e5ff
 $dropdown-link: #5b6292
 $dropdown-link-active: #6c7fff
 $dropdown-link-active-bg: #c4d5ff
+$dropdown-link-hover: #5b6292
+$dropdown-link-hover-bg: #a9bae2
 
 .menu
   position: fixed
@@ -19,24 +25,35 @@ $dropdown-link-active-bg: #c4d5ff
   a
     display: block
     width: 100%
-    text-align: center
     text-decoration: none
     font-size: 1rem
-    padding: 10px 0
+    padding: 10px 20px
     color: $link-color
     transition: all .2s ease
-    &:hover, &:focus, &.router-link-active
+    &:hover, &:focus
+      color: $link-color-hover
+      background: $link-bg-hover
+    &.router-link-active
       color: $link-color-active
       background: $link-bg-active
-
+      font-size: 1.1rem
+    i
+      width: 20px
+      text-align: center
+      margin-right: 10px
+    &.dropdown-toggled
+      color: $dropdown-btn-color
+      background: $dropdown-btn-bg
 .menu-dropdown
   background: $dropdown-bg
   a
     color: $dropdown-link
-    &:hover, &:focus, &.router-link-active
+    &:hover, &:focus
+      color: $dropdown-link-hover
+      background: $dropdown-link-hover-bg
+    &.router-link-active
       color: $dropdown-link-active
       background: $dropdown-link-active-bg
-
 .menu .logo
   max-width: 100%
   padding: 20px 10px
