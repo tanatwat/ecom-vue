@@ -4,8 +4,8 @@
 		<div class="logo">
 			<img src="../assets/Ecom.svg" alt="">
 		</div>
-    <router-link to="/admin" exact><i class="fas fa-home"></i>หน้าแรก</router-link>
-    <a :class="{'dropdown-toggled' : dropdown == 1}" @click.prevent="dropdownToggle(1)"><i class="fas fa-warehouse"></i>จัดการสินค้า</a>
+		<router-link to="/admin" exact><i class="fas fa-home"></i>หน้าแรก</router-link>
+		<a :class="{'dropdown-toggled' : dropdown == 1}" @click.prevent="dropdownToggle(1)"><i class="fas fa-warehouse"></i>จัดการสินค้า</a>
 		<div class="menu-dropdown" v-show="dropdown == 1">
 			<router-link to="/admin/products" exact><i class="fas fa-box"></i>สินค้าในร้าน</router-link>
 			<router-link to="/admin/products/upload"><i class="fas fa-plus"></i>เพิ่มสินค้า</router-link>
@@ -23,44 +23,74 @@
 		<router-link to="/admin/payment"><i class="fas fa-dollar-sign"></i>ช่องทางชำระเงิน</router-link>
 		<router-link to="/admin/shipping"><i class="fas fa-truck"></i>การจัดส่ง</router-link>
 
-  </nav>
+	</nav>
 	<nav class="mobile-menu">
 		<div class="logo">
 			<img src="../assets/Ecom.svg" alt="">
 		</div>
 		<i class="fas fa-bars menu-btn"></i>
 	</nav>
-  <div class="dashboard">
+	<div class="dashboard">
 		<div class="load-overlay" v-show="$root.loading">
 			<div class="roller-wrapper">
-				<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+				<div class="lds-roller">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
 			</div>
 		</div>
-    <div class="container">
+		<div class="container">
 			<h1 class="title">Title</h1>
-      <router-view />
-    </div>
-  </div>
+			<router-view />
+		</div>
+	</div>
 
 </div>
 </template>
 <script>
-	export default {
-		data() {
-			return {
-				dropdown: false
-			};
-		},
-		methods: {
-			dropdownToggle(id) {
-				if (this.dropdown == id) {
-					this.dropdown = null
-				} else {
-					this.dropdown = id
-				}
+export default {
+	data() {
+		return {
+			dropdown: false
+		};
+	},
+	methods: {
+		dropdownToggle(id) {
+			if (this.dropdown == id) {
+				this.dropdown = null
+			} else {
+				this.dropdown = id
 			}
 		}
+	},
+	created() {
+		axios.interceptors.request.use((config) => {
+			// trigger 'loading=true' event here
+			this.$root.loading = true
+			return config;
+		}, (error) => {
+			// trigger 'loading=false' event here
+			this.$root.loading = false
+			return Promise.reject(error);
+		});
+
+		axios.interceptors.response.use((response) => {
+			// trigger 'loading=false' event here
+			this.$root.loading = false
+			return response;
+		}, (error) => {
+			// trigger 'loading=false' event here
+			this.$root.loading = false
+			return Promise.reject(error);
+		});
 	}
+}
 </script>
 <style lang="sass">
   @import './sass/admin.sass'
