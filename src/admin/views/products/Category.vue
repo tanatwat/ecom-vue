@@ -22,9 +22,6 @@ export default {
     return {
       tab: 1
     }
-  },
-  methods: {
-
   }
 }
 </script>

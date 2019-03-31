@@ -1,5 +1,6 @@
 <template>
 <div>
+	<vue-progress-bar></vue-progress-bar>
 	<nav class="menu">
 		<div class="logo">
 			<img src="../assets/Ecom.svg" alt="">
@@ -70,22 +71,26 @@ export default {
 		}
 	},
 	created() {
-		axios.interceptors.request.use((config) => {
+		this.$http.interceptors.request.use((config) => {
 			// trigger 'loading=true' event here
+			this.$Progress.start();
 			this.$root.loading = true
 			return config;
 		}, (error) => {
 			// trigger 'loading=false' event here
+			this.$Progress.fail();
 			this.$root.loading = false
 			return Promise.reject(error);
 		});
 
-		axios.interceptors.response.use((response) => {
+		this.$http.interceptors.response.use((response) => {
 			// trigger 'loading=false' event here
+			this.$Progress.finish();
 			this.$root.loading = false
 			return response;
 		}, (error) => {
 			// trigger 'loading=false' event here
+			this.$Progress.fail();
 			this.$root.loading = false
 			return Promise.reject(error);
 		});

@@ -49,13 +49,13 @@ export default {
   },
   methods: {
     get() {
-      axios.get('/brands').then(response => {
+      this.$http.get('/brands').then(response => {
         this.brands = response.data
       })
     },
     add() {
       if (confirm('เพิ่มแบรนด์สินค้านี้?')) {
-        axios.post('/brands', {
+        this.$http.post('/brands', {
           brand: this.form.brand
         }).then(response => {
           this.form.brand = null
@@ -66,7 +66,7 @@ export default {
     },
     edit(brand) {
       if (confirm('แก้ไขชื่อแบรนด์นี้?')) {
-        axios.put('/brands/' + brand.id, {
+        this.$http.put('/brands/' + brand.id, {
           brand: brand.name
         }).then(response => {
           toastr.success('อัพเดทแบรนด์แล้ว')
@@ -75,7 +75,7 @@ export default {
     },
     remove(id, index) {
       if (confirm('คุณแน่ใจหรือไม่ว่าจะลบ?')) {
-        axios.delete('/brands/' + id).then(() => {
+        this.$http.delete('/brands/' + id).then(() => {
           this.brands.splice(index, 1)
           toastr.success('ลบแบรนด์สินค้าแล้ว')
         })

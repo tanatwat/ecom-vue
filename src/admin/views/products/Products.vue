@@ -1,10 +1,18 @@
 <template lang="html">
 <div>
-  <section class="columns">
-
+  <section class="">
+    <div class="product-grid">
+      <div class="product-card" v-for="item in products">
+        <div class="product-img-wrapper">
+          <img :src="'https://s3-ap-southeast-1.amazonaws.com/images.peach/thumbnail/' + item.thumbnail" alt="">
+        </div>
+        <div class="product-details-wrapper">
+          <a class="product-link">{{ item.name }}</a>
+          <p class="product-detail">{{ $number.format(item.price) + ' บาท' }}</p>
+        </div>
+      </div>
+    </div>
   </section>
-
-  <pagination :meta="meta" v-on:switched="changePage" v-show="products.length"></pagination>
 </div>
 </template>
 <script>
@@ -56,9 +64,8 @@ export default {
 			this.view = view
 		},
 		getProduct() {
-			this.$root.loading = true
 			this.products = []
-			axios.get(this.$root.url + '/api/get/products_paginate', {
+			this.$http.get('/products/paginate', {
 				params: {
 					name: this.query.name,
 					order: this.query.orderBy,
@@ -68,19 +75,18 @@ export default {
 					min: this.query.minPrice,
 					dc: this.query.discount,
 					page: this.query.page ? this.query.page : 1,
+					db: this.$root.database,
 				}
 			}).then(response => {
 				this.products = response.data.data
 				this.meta = response.data.meta
-				this.$root.loading = false
 			}, response => {
-				this.$root.loading = false
 				toastr.error('เกิดข้อผิดพลาด')
 			})
 		},
 		remove(index, uid) {
 			if (confirm('คุณแน่ใจหรือไม่ว่าต้องการจะลบสินค้านี้?')) {
-				axios.delete(this.$root.url + '/admin/product/delete/' + uid).then(response => {
+				this.$http.delete('/admin/product/delete/' + uid).then(response => {
 					toastr.success('ลบสินค้าแล้ว')
 					this.products.splice(index, 1)
 				}, response => {
@@ -94,7 +100,7 @@ export default {
 			return Math.round(result);
 		},
 		addToHome(uid, index) {
-			axios.put(this.$root.url + '/admin/product/feature/' + uid).then(response => {
+			this.$http.put(this.$root.url + '/admin/product/feature/' + uid).then(response => {
 				if (this.products[index].featured == true) {
 					this.products[index].featured = false
 					toastr.success('ลบออกจากหน้าแรกแล้ว')

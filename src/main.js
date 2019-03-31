@@ -4,26 +4,45 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 
+const databaseName = 'ecom.'
+const siteName = 'testing'
+const backendUrl = 'http://localhost:9000'
+
 Vue.config.productionTip = false
 
 import VeeValidate from 'vee-validate'
 Vue.use(VeeValidate);
 
-const http = axios.create({
-  baseURL: 'http://localhost:9000',
-  headers: {"Access-Control-Allow-Origin": true},
+import number from './misc/number'
+Vue.use(number)
+
+import VueProgressBar from 'vue-progressbar'
+const progressBarOptions = {
+  color: '#64d858',
+  failedColor: '#ce2446',
+  thickness: '5px'
+}
+Vue.use(VueProgressBar, progressBarOptions)
+
+Vue.prototype.$http = axios.create({
+  baseURL: backendUrl,
+  headers: {
+    "Access-Control-Allow-Origin": true,
+    'Content-Type': 'application/x-www-form-urlencoded'
+  },
   data: {
-    database: 'ecom.'
+    database: databaseName,
+    siteName: siteName
   }
 });
-
-window.axios = http;
 
 new Vue({
   data() {
     return {
-      backendUrl: 'google',
-      loading: false
+      backendUrl: backendUrl,
+      loading: false,
+      database: databaseName,
+      siteName: siteName
     }
   },
   router,

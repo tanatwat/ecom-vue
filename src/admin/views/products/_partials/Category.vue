@@ -129,7 +129,7 @@ export default {
 	},
 	methods: {
 		getCategory() {
-			axios.get('/categories').then(response => {
+			this.$http.get('/categories').then(response => {
 				this.categories = response.data
 			})
 		},
@@ -137,7 +137,7 @@ export default {
 			if (confirm('ยืนยันหมวดหมู่นี้?')) {
 				const category = this.confirmed.category.name
 				const subcategories = this.confirmed.category.subcategories
-				axios.post('/categories', {
+				this.$http.post('/categories', {
 					category: category,
 					subcategories: subcategories,
 					formFilled: this.formFilled
@@ -152,7 +152,7 @@ export default {
 		},
 		removeCategory(id, index) {
 			if (confirm('คุณแน่ใจหรือไม่ว่าจะลบหมวดหมู่นี้?')) {
-				axios.delete('/categories/' + id).then(() => {
+				this.$http.delete('/categories/' + id).then(() => {
 					this.categories.splice(index, 1)
 					toastr.success('ลบหมวดหมู่แล้ว')
 				})

@@ -49,7 +49,7 @@ export default {
   methods: {
     getCategory() {
       this.$root.loading = true
-      axios.get('/category/' + this.$route.params.category).then(response => {
+      this.$http.get('/category/' + this.$route.params.category).then(response => {
         this.category = response.data
         this.$root.loading = false
       })
@@ -67,7 +67,7 @@ export default {
       this.type = null
     },
     saveChanges() {
-      axios.put('/category/' + this.$route.params.category).then(response => {
+      this.$http.put('/category/' + this.$route.params.category).then(response => {
 
       })
     }

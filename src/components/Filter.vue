@@ -103,7 +103,7 @@ export default {
       getCategory() {
         this.$root.loading = true
         this.$Progress.start()
-        axios.get(this.$root.url + '/api/get/category').then(response => {
+        httpget(this.$root.url + '/api/get/category').then(response => {
           this.categories = response.data
           this.$root.loading = false
           this.$Progress.finish()
