@@ -1,4 +1,4 @@
-$page-btn-bg: #f2f2f2
+$page-btn-bg: #868cca
 %box
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2)
   width: 40px
@@ -99,9 +99,45 @@ $page-btn-bg: #f2f2f2
       border-radius: 0
       a
         cursor: pointer
-        color: #6c6c6c
+        color: #fff
         &:hover
           color: $page-btn-bg
       &.hidden
         display: block
         visibility: hidden
+
+
+/* SEARCH FILTER */
+
+.filter
+  .categories
+    min-width: 100%
+    margin: 10px 0
+    .category
+      padding: 8px
+      background: #f2f2f2
+      border-radius: 8px
+      overflow-x: auto
+      overflow-y: hidden
+      white-space: nowrap
+      &:not(:last-child)
+        margin-bottom: 15px
+    li
+      cursor: pointer
+      display: inline-block
+      margin: 0 10px
+      padding: 8px 12px
+      background: #ddd
+      color: #777
+      border-radius: 8px
+      &.active
+        color: #fff
+        background: #6dc55a
+
+@media(min-width: 992px)
+  .filter
+    max-width: 80%
+
+@media(min-width: 1200px)
+  .filter
+    max-width: 60%

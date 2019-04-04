@@ -60,7 +60,7 @@
 					<label>ราคา</label>
 					<input type="text" v-model="price">
 					<label>แบรนด์</label>
-					<select v-model="brand" :required="brands.length">
+					<select v-model="brand">
 						<option :value="brand.id" v-for="brand in brands" :key="brand.id">{{ brand.name }}</option>
 					</select>
 				</div>
@@ -186,8 +186,12 @@ export default {
 						formData.append("description", self.description);
 						formData.append("brand_id", self.brand);
 						formData.append("category_id", self.category.id);
-						formData.append("subcategory_id", self.subcategory.id);
-						formData.append("type_id", self.type.id);
+						if (self.subcategory) {
+							formData.append("subcategory_id", self.subcategory.id);
+							if (self.type) {
+								formData.append("type_id", self.type.id);
+							}
+						}
 						formData.append("choice", JSON.stringify(self.choices));
 						formData.append("thumbnail", self.$refs.thumbnail.files[0]);
 					},
@@ -212,7 +216,11 @@ export default {
 			});
 		},
 		submit() {
-			self.image.processQueue();
+			if (!this.$refs.thumbnail.files[0]) {
+				alert('โปรดเลือกรูปภาพขนาดย่อ')
+			} else {
+				self.image.processQueue();
+			}
 		},
 		get() {
 			this.$http.get('/get/product_upload_data').then(response => {
@@ -222,7 +230,7 @@ export default {
 		},
 		selectCategory(category) {
 			this.selectChoices.subcategories = category.subcategory
-			this.subcategory = []
+			this.subcategory = null
 			this.type = null
 			this.selectChoices.types = []
 		},

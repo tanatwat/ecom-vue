@@ -58,16 +58,27 @@ input.file-input
 
 .image-preview
   width: 100%
+  min-width: 200px
   height: 200px
   object-fit: contain
   display: flex
   justify-content: center
   background-color: #f2f2f2
+  border: 1px solid #ddd
   img
     height: 100%
   i
     align-self: center
     font-size: 2rem
+
+.file-input-wrapper
+  > div:last-child
+    padding-left: 10px
+
+@media(max-width: 768px)
+  .file-input-wrapper
+    > div:last-child
+      padding-left: 0
 
 .input-group
   display: flex

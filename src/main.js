@@ -3,6 +3,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import axios from 'axios'
+import lodash from 'lodash'
 
 const databaseName = 'ecom.'
 const siteName = 'testing'
@@ -26,10 +27,6 @@ Vue.use(VueProgressBar, progressBarOptions)
 
 Vue.prototype.$http = axios.create({
   baseURL: backendUrl,
-  headers: {
-    "Access-Control-Allow-Origin": true,
-    'Content-Type': 'application/x-www-form-urlencoded'
-  },
   data: {
     database: databaseName,
     siteName: siteName

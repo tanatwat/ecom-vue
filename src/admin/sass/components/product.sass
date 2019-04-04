@@ -12,6 +12,9 @@ $height: 200px
   > *
      max-width: $m-width
 
+.product-row
+  display: flex
+
 @media(min-width: 768px)
   .product-grid
     display: grid
@@ -54,6 +57,9 @@ $height: 200px
     color: #61b62f
 
 .product-action-wrapper
-  padding: 8px 5px
+  padding: 5px 0
   background-color: #f2f2f2
   text-align: right
+  > *
+    padding: 5px 0 !important
+    margin: 0 10px

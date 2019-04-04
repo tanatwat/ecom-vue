@@ -2,6 +2,7 @@ import Admin from '../admin/Admin.vue'
 import Dashboard from '../admin/views/Dashboard.vue'
 import Product from '../admin/views/products/Products.vue'
 import ProductUpload from '../admin/views/products/ProductUpload.vue'
+import ProductEdit from '../admin/views/products/edit/ProductEdit.vue'
 import Category from '../admin/views/products/Category.vue'
 import CategoryEdit from '../admin/views/products/CategoryEdit.vue'
 import Promotion from '../admin/views/products/Promotion.vue'
@@ -37,6 +38,10 @@ export default [
       {
         path: 'products/upload',
         component: ProductUpload,
+      },
+      {
+        path: 'products/:uid/edit',
+        component: ProductEdit,
       },
       {
         path: 'products/category',
