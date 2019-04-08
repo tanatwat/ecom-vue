@@ -39,7 +39,18 @@ new Vue({
       backendUrl: backendUrl,
       loading: false,
       database: databaseName,
-      siteName: siteName
+      siteName: siteName,
+      // 1 MB
+      thumbnailSize: {
+        file: 1048576,
+        string: '1 MB'
+      },
+      // 1.5 MB
+      photoSize: {
+        file: 1572864,
+        string: '1.5 MB'
+      },
+      photoLimit: 7
     }
   },
   router,

@@ -2,11 +2,15 @@
 <div>
   <search-filter :can-toggle-view="true" :include-discount="true" v-on:search="addQueryParam" v-on:changeView="changeView"></search-filter>
   <pagination :meta="meta" v-on:switched="changePage" v-show="products.length"></pagination>
-  <section style="padding: 30px 0">
+  <section class="section-wrapper text-center" v-if="!products.length">
+    <h1 class="is-size-3">ไม่มีสินค้า</h1>
+    <router-link class="is-size-4" to="/admin/products/upload">เพิ่มสินค้าที่นี่</router-link>
+  </section>
+  <section style="padding: 30px 0" v-else>
     <div class="product-grid">
       <div class="product-card" v-for="(item, index) in products">
         <div class="product-img-wrapper">
-          <!-- <img :src="'https://s3-ap-southeast-1.amazonaws.com/images.peach/thumbnail/' + item.thumbnail" alt=""> -->
+          <img :src="'https://s3-ap-southeast-1.amazonaws.com/images.peach/thumbnail/' + item.thumbnail" alt="">
         </div>
         <div class="product-details-wrapper">
           <a class="product-link">{{ item.name }}</a>
@@ -74,7 +78,7 @@ export default {
 		},
 		getProduct() {
 			this.products = []
-			this.$http.get('/get/products', {
+			this.$http.get('/products', {
 				params: {
 					name: this.query.name,
 					order: this.query.orderBy,
@@ -103,7 +107,7 @@ export default {
 			if (confirm('คุณแน่ใจหรือไม่ว่าต้องการจะลบสินค้านี้?')) {
 				this.$http.delete('/products/' + uid).then(response => {
 					toastr.success('ลบสินค้าแล้ว')
-					this.products.splice(index, 1)
+					this.getProduct()
 				}, response => {
 					toastr.error('เกิดข้อผิดพลาด')
 				})

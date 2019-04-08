@@ -6,7 +6,7 @@
 				<h3 class="section-heading">ตัวอย่างสินค้า</h3>
 				<div style="width:200px" class="margin-center">
 					<div class="product-card">
-						<div class="image-preview">
+						<div class="image-preview" style="border:none;min-width:auto">
 							<i class="fas fa-images" :class="{'is-hidden' : image_preview}"></i>
 							<img :src="image_preview">
 						</div>
@@ -20,11 +20,11 @@
 		</section>
 		<section class="column is-half">
 			<div class="section-wrapper">
-				<h3 class="section-heading">รูปภาพขนาดย่อ<span class="optional">200*200</span></h3>
+				<h3 class="section-heading">รูปภาพขนาดย่อ<span class="optional">&nbsp;200*200</span></h3>
 				<div class="is-flex-desktop">
 					<div style="width:200px" class="margin-center">
 						<div class="product-card">
-							<div class="image-preview">
+							<div class="image-preview" style="border:none;min-width:auto">
 								<i class="fas fa-images" :class="{'is-hidden' : image_preview}"></i>
 								<img :src="image_preview">
 							</div>
@@ -115,7 +115,7 @@
 			<div class="section-wrapper">
 				<h3 class="section-heading">ตัวเลือกของสินค้านี้</h3>
 				<div class="badge info" v-for="(item, index) in choices" :key="item.id">
-					{{ item }}<button class="delete" @click="deleteChoice(index)"></button>
+					{{ item.name }}<button class="delete" @click="deleteChoice(index)"></button>
 				</div>
 				<p class="subtitle" v-show="!choices.length">ไม่มีตัวเลือก</p>
 			</div>
@@ -174,8 +174,8 @@ export default {
 							if (this.files.length > 6) {
 								this.removeFile(this.files[0]);
 							}
-							if (file.size > 2097152) {
-								alert('ขนาดรูปต้องไม่เกินรูปละ 2 MB');
+							if (file.size > self.$root.photoSize.file) {
+								alert('ขนาดรูปต้องไม่เกินรูปละ' + self.$root.photoSize.string);
 								this.removeFile(file)
 							}
 						});
@@ -204,7 +204,7 @@ export default {
 						this.removeFile(this.files[0]);
 						self.$Progress.finish();
 						self.$root.loading = false;
-						document.location.href = '/admin/products/upload';
+						//document.location.href = '/admin/products/upload';
 					},
 					error: function() {
 						self.$Progress.fail();
@@ -239,7 +239,10 @@ export default {
 			this.type = null
 		},
 		addChoice() {
-			this.choices.push(this.form.choice)
+			this.choices.push({
+				name: this.form.choice,
+				qty: 1
+			})
 			this.form.choice = null
 		},
 		deleteChoice(index) {
@@ -248,8 +251,8 @@ export default {
 		preview(event) {
 			var input = event.target;
 			if (input.files && input.files[0]) {
-				if (input.files[0].size > 1048576) {
-					alert('ขนาดไฟล์ต้องไม่เกิน 1 MB');
+				if (input.files[0].size > self.$root.thumbnailSize.file) {
+					alert('ขนาดไฟล์ต้องไม่เกิน' + self.$root.thumbnailSize.string);
 					this.removefile()
 				}
 				var reader = new FileReader();

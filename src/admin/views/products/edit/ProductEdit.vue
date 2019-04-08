@@ -13,7 +13,7 @@
         <div class="button-wrapper padding-laptop">
           <input class="file-input" ref="thumbnail" type="file" id="thumbnail" @change="preview">
           <label class="btn primary" for="thumbnail">เลือกรูปภาพ</label>
-          <button class="btn error full-width" type="button" :disabled="!image_preview" @click="removeFile">ลบรูปภาพ</button>
+          <button class="btn error full-width" type="button" :disabled="!image_preview || !changed" @click="removeFile">ลบรูปภาพ</button>
           <button class="btn success full-width" type="button" :disabled="!image_preview || !changed" @click="editThumbnail">อัพโหลด</button>
         </div>
       </div>
@@ -35,18 +35,23 @@
   </div>
   <category :categories="properties.categories" v-on:category-change="updateCategory"></category>
   <brand :brands="properties.brands" v-on:brand-change="updateBrand"></brand>
-
+  <photo :photos="properties.photos"></photo>
+  <choice :data="JSON.parse(product.choice)"></choice>
 </div>
 </template>
 
 <script>
 import Category from './Category'
 import Brand from './Brand'
+import Photo from './Photo'
+import Choice from './Choice'
 
 export default {
   components: {
     Category,
-    Brand
+    Brand,
+    Photo,
+    Choice
   },
   data() {
     return {
@@ -56,7 +61,8 @@ export default {
       thumbnail: null,
       properties: {
         categories: [],
-        brands: []
+        brands: [],
+        photos: []
       }
     }
   },
@@ -64,6 +70,7 @@ export default {
     get() {
       this.$http.get('get/product/' + this.$route.params.uid).then(response => {
         this.product = response.data
+        this.properties.photos = this.product.photos
         this.image_preview = 'https://s3-ap-southeast-1.amazonaws.com/images.peach/thumbnail/' + this.product.thumbnail
       })
     },
@@ -76,8 +83,8 @@ export default {
     preview(event) {
 			var input = event.target;
 			if (input.files && input.files[0]) {
-				if (input.files[0].size > 1048576) {
-					alert('ขนาดไฟล์ต้องไม่เกิน 1 MB');
+				if (input.files[0].size > self.$root.thumbnailSize.file) {
+					alert('ขนาดไฟล์ต้องไม่เกิน ' + self.$root.thumbnailSize.string);
 					this.removefile()
 				}
 				var reader = new FileReader();
