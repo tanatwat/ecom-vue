@@ -2,7 +2,7 @@
 <div class="columns is-multiline is-mobile">
 	<!-- CATEGORY -->
 	<section class="column is-full-mobile order-2-mobile">
-		<div class="section-wrapper">
+		<div class="box">
 			<h3 class="section-heading">หมวดหมู่สินค้าของร้าน</h3>
 			<label v-show="!categories.length">ไม่มีหมวดหมู่</label>
 			<div class="data-list" v-for="(category, index) in categories">
@@ -20,27 +20,35 @@
 	</section>
 	<!-- ADD CATEGORY -->
 	<section class="column is-full-mobile order-1-mobile">
-		<div class="section-wrapper">
+		<div class="box">
 			<h3 class="section-heading">สร้างหมวดหมู่</h3>
 
 			<!-- CATEGORY FORM -->
-			<div class="form-group" v-show="!confirmed.category.name">
-				<label>ชื่อหมวดหมู่</label>
-				<div class="input-group">
-					<input type="text" v-model="form.category" placeholder="ชื่อหมวดหมู่หลัก">
-					<button :disabled="!form.category" type="button" class="btn success group right-column" @click="confirmCategory">ยืนยัน</button>
+			<div class="field" v-show="!confirmed.category.name">
+				<label class="label">ชื่อหมวดหมู่</label>
+				<div class="field is-grouped">
+					<p class="control is-expanded">
+						<input class="input" type="text" v-model="form.category" placeholder="ชื่อหมวดหมู่หลัก">
+					</p>
+					<p class="control">
+						<button :disabled="!form.category" class="btn success group" @click="confirmCategory">ยืนยัน</button>
+					</p>
 				</div>
 			</div>
 			<!-- SUBCATEGORY FORM -->
-			<div class="form-group" v-show="confirmed.category.name && !confirmed.category.subcategories.length">
-				<label>หมวดหมู่หลัก&nbsp;<i class="fas fa-caret-right"></i>&nbsp;หมวดหมู่รอง</label>
+			<div class="field" v-show="confirmed.category.name && !confirmed.category.subcategories.length">
+				<label class="label">หมวดหมู่หลัก&nbsp;<i class="fas fa-caret-right"></i>&nbsp;หมวดหมู่รอง</label>
 				<p class="section-heading">หมวดหมู่รอง<small class="optional">(ไม่มีก็ได้)</small></p>
 				<div style="padding-bottom:8px">
 					<small>*หากไม่ต้องการเพิ่มให้คลิก เพิ่มหมวดหมู่ด้านล่างได้เลย</small><br>
 				</div>
-				<div class="input-group">
-					<input type="text" v-model="form.subcategory" placeholder="ชื่อหมวดหมู่รอง">
-					<button :disabled="!form.subcategory" type="button" class="btn success group right-column" @click="addSubcategory">เพิ่ม</button>
+				<div class="field is-grouped">
+					<p class="control is-expanded">
+						<input class="input" type="text" v-model="form.subcategory" placeholder="ชื่อหมวดหมู่รอง">
+					</p>
+					<p class="control">
+						<button :disabled="!form.subcategory" class="btn success group" @click="addSubcategory">เพิ่ม</button>
+					</p>
 				</div>
 				<div class="subcategories-form" v-show="form.subcategories.length">
 					<div class="tags has-addons are-medium" v-for="(item, index) in form.subcategories" style="margin-bottom:5px">
@@ -54,7 +62,7 @@
 			</div>
 
 			<!-- TYPES FORM -->
-			<div class="form-group" v-show="confirmed.category.subcategories.length && !formFilled">
+			<div class="field" v-show="confirmed.category.subcategories.length && !formFilled">
 				<label>หมวดหมู่หลัก&nbsp;<i class="fas fa-caret-right"></i>&nbsp;หมวดหมู่รอง&nbsp;<i class="fas fa-caret-right"></i>&nbsp;หมวดหมู่ย่อย</label>
 				<div class="types-form">
 					<p class="section-heading">หมวดหมู่ย่อย<small class="optional">(ไม่มีก็ได้)</small></p>
@@ -67,9 +75,13 @@
 							<span class="tag" :class="{'is-success' : typeForm == index, 'is-primary' : typeForm !== index}">{{ item.name }}</span>
 							<a class="tag fas" :class="{'fa-plus' : typeForm !== index, 'fa-caret-down' : typeForm == index}" @click.prevent="toggleTypeForm(index)"></a>
 						</div>
-						<div class="input-group" v-show="typeForm == index">
-							<input type="text" v-model="form.type" placeholder="ชื่อหมวดหมู่ย่อย">
-							<button :disabled="!form.type" type="button" class="btn success group right-column" @click="addType(index)">เพิ่ม</button>
+						<div class="field is-grouped" v-show="typeForm == index">
+							<p class="control is-expanded">
+								<input class="input" type="text" v-model="form.type" placeholder="ชื่อหมวดหมู่ย่อย">
+							</p>
+							<p class="control">
+								<button :disabled="!form.type" class="btn success group" @click="addType(index)">เพิ่ม</button>
+							</p>
 						</div>
 						<div class="tags has-addons are-medium are-light" style="margin-bottom:3px" v-for="(type, index) in confirmed.category.subcategories[index].types">
 							<span class="tag">{{ type.name }}</span>

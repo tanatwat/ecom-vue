@@ -1,45 +1,32 @@
 <template>
-<div class="">
+<div>
 	<form method="post" class="columns is-multiline" @submit.prevent="submit">
-		<section class="column is-half">
-			<div class="section-wrapper">
-				<h3 class="section-heading">ตัวอย่างสินค้า</h3>
-				<div style="width:200px" class="margin-center">
-					<div class="product-card">
-						<div class="image-preview" style="border:none;min-width:auto">
-							<i class="fas fa-images" :class="{'is-hidden' : image_preview}"></i>
-							<img :src="image_preview">
-						</div>
-						<div class="product-details-wrapper">
-							<a class="product-link">{{ name ? name : 'ชื่อสินค้า' }}</a>
-							<p class="product-detail">{{ price ? $number.format(price) + ' บาท' : 'ราคา' }}</p>
-						</div>
-					</div>
+		<section class="column is-full">
+			<div class="box columns is-gapless">
+				<div class="column">
+					<h3 class="section-heading">รูปภาพขนาดย่อ</h3>
+					<file-upload :allow-upload="false"></file-upload>
 				</div>
-			</div>
-		</section>
-		<section class="column is-half">
-			<div class="section-wrapper">
-				<h3 class="section-heading">รูปภาพขนาดย่อ<span class="optional">&nbsp;200*200</span></h3>
-				<div class="is-flex-desktop">
+				<div class="column is-hidden-touch">
 					<div style="width:200px" class="margin-center">
 						<div class="product-card">
-							<div class="image-preview" style="border:none;min-width:auto">
+							<div class="image-preview" :class="{'active' : image_preview}" style="border:none;min-width:auto">
+								<i class="tag is-primary top-right">ตัวอย่าง</i>
 								<i class="fas fa-images" :class="{'is-hidden' : image_preview}"></i>
 								<img :src="image_preview">
 							</div>
+							<div class="product-details-wrapper">
+								<a class="product-link">{{ name ? name : 'ชื่อสินค้า' }}</a>
+								<p class="product-detail">{{ price ? $number.format(price) + ' บาท' : 'ราคา' }}</p>
+							</div>
 						</div>
-					</div>
-					<div class="button-wrapper padding-laptop">
-						<input class="file-input" ref="thumbnail" type="file" id="thumbnail" @change="preview">
-						<label class="btn primary" for="thumbnail">เลือกรูปภาพ</label>
-						<button class="btn error full-width" type="button" :disabled="!image_preview" @click="removeFile">ลบรูปภาพ</button>
 					</div>
 				</div>
 			</div>
 		</section>
+
 		<section class="column is-full">
-			<div class="section-wrapper">
+			<div class="box">
 				<div class="form-group">
 					<h3 class="section-heading">รูปภาพสินค้า</h3>
 					<div class="dropzone margin-15-v" id="uploader">
@@ -51,39 +38,45 @@
 				</div>
 			</div>
 		</section>
+
 		<section class="column is-half">
-			<div class="section-wrapper">
+			<div class="box">
 				<h3 class="section-heading">รายละเอียด</h3>
-				<div class="form-group">
-					<label>ชื่อสินค้า</label>
-					<input type="text" v-model="name">
-					<label>ราคา</label>
-					<input type="text" v-model="price">
-					<label>แบรนด์</label>
-					<select v-model="brand">
-						<option :value="brand.id" v-for="brand in brands" :key="brand.id">{{ brand.name }}</option>
-					</select>
+				<form-input label="ชื่อสินค้า" name="name" type="text" validate="required" validate-as="ชื่อสินค้า" v-model="name"></form-input>
+				<form-input label="ราคา" name="price" type="text" validate="required|numeric" validate-as="ราคา" v-model="price"></form-input>
+				<div class="field">
+					<label class="label">แบรนด์</label>
+					<div class="select full">
+						<select required v-model="brand">
+							<option :value="brand.id" v-for="brand in brands" :key="brand.id">{{ brand.name }}</option>
+						</select>
+					</div>
 				</div>
 			</div>
 		</section>
+		<!-- CATEGORY -->
 		<section class="column is-half">
-			<div class="section-wrapper">
+			<div class="box">
 				<h3 class="section-heading">หมวดหมู่</h3>
-				<div class="form-group">
-					<div id="category" v-show="categories.length">
-						<label>หมวดหมู่</label>
+				<div class="field" v-show="categories.length">
+					<label class="label">หมวดหมู่</label>
+					<div class="select full">
 						<select required v-model="category" @change="selectCategory(category)">
 							<option :value="category" v-for="category in categories" :key="category.id">{{ category.name }}</option>
 						</select>
 					</div>
-					<div id="subcategory" v-show="selectChoices.subcategories.length">
-						<label>หมวดหมู่รอง</label>
+				</div>
+				<div class="field" v-show="selectChoices.subcategories.length">
+					<label class="label">หมวดหมู่รอง</label>
+					<div class="select full">
 						<select v-model="subcategory" @change.prevent="selectSubcategory(subcategory)">
 							<option :value="subcategory" v-for="subcategory in selectChoices.subcategories" :key="subcategory.id">{{ subcategory.name }}</option>
 						</select>
 					</div>
-					<div id="type" v-show="selectChoices.types.length">
-						<label>หมวดหมู่ย่อย</label>
+				</div>
+				<div class="field" v-show="selectChoices.types.length">
+					<label class="label">หมวดหมู่ย่อย</label>
+					<div class="select full">
 						<select v-model="type">
 							<option :value="type" v-for="type in selectChoices.types" :key="type.id">{{ type.name }}</option>
 						</select>
@@ -91,45 +84,58 @@
 				</div>
 			</div>
 		</section>
+		<!-- DESCRIPTION -->
 		<section class="column is-full">
-			<div class="section-wrapper">
-				<div class="form-group">
+			<div class="box">
+				<div class="field">
 					<h3 class="section-heading">คำอธิบายสินค้า</h3>
-					<textarea placeholder="คำอธิบายสินค้าของคุณ..." v-model="description"></textarea>
-				</div>
-			</div>
-		</section>
-		<section class="column is-half">
-			<div class="section-wrapper">
-				<h3 class="section-heading">ตัวเลือกสินค้า</h3>
-				<div class="form-group">
-					<label>เพิ่มตัวเลือก</label>
-					<div class="input-group">
-						<input type="text" v-model="form.choice" placeholder="เช่น สี ไซส์">
-						<button :disabled="!form.choice" class="btn success group right-column" @click="addChoice">เพิ่ม</button>
+					<div class="control">
+						<textarea class="textarea" placeholder="คำอธิบายสินค้าของคุณ..." v-model="description"></textarea>
 					</div>
 				</div>
 			</div>
 		</section>
 		<section class="column is-half">
-			<div class="section-wrapper">
+			<div class="box">
+				<h3 class="section-heading">ตัวเลือกสินค้า</h3>
+				<div class="field is-grouped">
+					<p class="control is-expanded">
+						<input class="input" type="text" v-model="form.choice" placeholder="เช่น สี ไซส์">
+					</p>
+					<p class="control">
+						<button :disabled="!form.choice" class="btn success group" @click="addChoice">เพิ่ม</button>
+					</p>
+				</div>
+			</div>
+		</section>
+		<section class="column is-half">
+			<div class="box">
 				<h3 class="section-heading">ตัวเลือกของสินค้านี้</h3>
-				<div class="badge info" v-for="(item, index) in choices" :key="item.id">
-					{{ item.name }}<button class="delete" @click="deleteChoice(index)"></button>
+				<div class="field is-grouped is-grouped-multiline">
+					<div class="control" v-for="(item, index) in choices" :key="item.id">
+						<div class="tags has-addons are-medium are-light">
+							<span class="tag is-primary">{{ item.name }}</span>
+							<a class="tag fas fa-times" @click="deleteChoice(index)"></a>
+						</div>
+					</div>
 				</div>
 				<p class="subtitle" v-show="!choices.length">ไม่มีตัวเลือก</p>
 			</div>
 		</section>
 		<section class="column is-full">
-			<button class="btn success action is-pulled-right" type="submit" name="button">อัพโหลดสินค้า</button>
+			<button type="submit" class="btn success form-submit is-pulled-right">อัพโหลดสินค้า</button>
 		</section>
 	</form>
 </div>
 </template>
 <script>
 import Dropzone from 'dropzone'
+import FileUpload from '../components/FileUpload'
 Dropzone.autoDiscover = false
 export default {
+	components:{
+		FileUpload
+	},
 	data() {
 		return {
 			name: null,
@@ -219,7 +225,11 @@ export default {
 			if (!this.$refs.thumbnail.files[0]) {
 				alert('โปรดเลือกรูปภาพขนาดย่อ')
 			} else {
-				self.image.processQueue();
+				if (this.errors.any()) {
+					alert('โปรดแก้ไขแบบฟอร์มก่อน')
+				} else {
+					self.image.processQueue()
+				}
 			}
 		},
 		get() {
@@ -247,25 +257,7 @@ export default {
 		},
 		deleteChoice(index) {
 			this.choices.splice(index, 1)
-		},
-		preview(event) {
-			var input = event.target;
-			if (input.files && input.files[0]) {
-				if (input.files[0].size > self.$root.thumbnailSize.file) {
-					alert('ขนาดไฟล์ต้องไม่เกิน' + self.$root.thumbnailSize.string);
-					this.removefile()
-				}
-				var reader = new FileReader();
-				var vm = this;
-				reader.onload = function(e) {
-					vm.image_preview = e.target.result;
-				}
-				reader.readAsDataURL(input.files[0]);
-			}
-		},
-		removeFile() {
-			this.image_preview = null;
-		},
+		}
 	},
 	created() {
 		this.initDropzone()

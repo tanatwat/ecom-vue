@@ -5,13 +5,13 @@
     <div class="tab-wrapper"><a href="#" class="tab-button w-button">Button Text</a><a href="#" class="tab-button tab-button-active w-button">Button Text</a></div>
     <div class="columns w-row">
       <div class="left-column w-col w-col-6">
-        <div class="section-wrapper">
+        <div class="box">
           <h3 class="section-heading">Logo</h3>
           <ul class="no-style-list"></ul>
         </div>
       </div>
       <div class="right-column w-col w-col-6">
-        <div class="section-wrapper">
+        <div class="box">
           <h3 class="section-heading">About Us</h3>
           <div class="w-form">
             <form id="email-form" name="email-form" data-name="Email Form">
@@ -30,7 +30,7 @@
     </div>
     <div class="w-row">
       <div class="left-column w-col w-col-6">
-        <div class="section-wrapper">
+        <div class="box">
           <h3 class="section-heading">Contact</h3>
           <div class="data-list-wrapper w-clearfix">
             <div>
@@ -45,7 +45,7 @@
         </div>
       </div>
       <div class="right-column w-col w-col-6">
-        <div class="section-wrapper">
+        <div class="box">
           <h3 class="section-heading">Contact+</h3>
           <div class="w-form">
             <form id="email-form" name="email-form" data-name="Email Form">

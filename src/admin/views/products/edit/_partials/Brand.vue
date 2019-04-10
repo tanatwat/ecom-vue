@@ -1,15 +1,15 @@
 <template>
   <div class="column is-6">
-    <div class="section-wrapper">
+    <div class="box">
       <h3 class="section-heading">แบรนด์</h3>
-      <strong>แบรนด์ของสินค้านี้</strong>
+      <strong class="font-success">แบรนด์ของสินค้านี้</strong>
       <br>
-      <i>{{ $parent.product.brand ? $parent.product.brand.name : null }}</i>
+      <p>{{ $parent.product.brand ? $parent.product.brand.name : null }}</p>
       <br>
       <form method="post" @submit.prevent="edit">
-        <div class="form-group">
-          <strong>แก้ไขแบรนด์</strong>
-          <label>แบรนด์</label>
+        <strong>แก้ไขแบรนด์</strong>
+        <label class="label">แบรนด์</label>
+        <div class="select full">
           <select required v-model="brand">
             <option :value="brand" v-for="brand in brands" :key="brand.id">{{ brand.name }}</option>
           </select>

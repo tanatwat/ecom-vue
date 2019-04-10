@@ -27,7 +27,7 @@ $dropdown-link-hover-bg: #a9bae2
     width: 100%
     text-decoration: none
     font-size: 1rem
-    padding: 10px 20px
+    padding: 9px 20px
     color: $link-color
     transition: all .2s ease
     &:hover, &:focus
@@ -40,10 +40,15 @@ $dropdown-link-hover-bg: #a9bae2
     i
       width: 20px
       text-align: center
-      margin-right: 10px
+      margin-right: .7rem
     &.dropdown-toggled
       color: $dropdown-btn-color
       background: $dropdown-btn-bg
+  hr
+    height: 1px
+    background: $dropdown-btn-bg
+    margin: .7rem 0
+
 .menu-dropdown
   background: $dropdown-bg
   a
@@ -59,6 +64,14 @@ $dropdown-link-hover-bg: #a9bae2
   padding: 20px 10px
   img
     width: 100%
+
+.menu-title
+  font-size: large
+  color: #9ca5e0
+  width: 100%
+  padding: 0 20px 8px 20px
+  font-style: normal
+  display: block
 
 .mobile-menu
   display: none

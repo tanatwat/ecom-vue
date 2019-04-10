@@ -4,7 +4,7 @@
       <h1 class="page-title-heading">Title</h1><a href="#" class="button secondary w-button">ย้อนกลับ</a></div>
     <div class="w-row">
       <div class="left-column w-col w-col-6">
-        <div class="section-wrapper">
+        <div class="box">
           <h3 class="section-heading">ตู้แสดงสินค้าของร้าน</h3>
           <div class="data-list-wrapper w-clearfix">
             <div>
@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="right-column w-col w-col-6">
-        <div class="section-wrapper">
+        <div class="box">
           <h3 class="section-heading">เพิ่มตู้แสดงสินค้า</h3>
           <div class="w-form">
             <form id="email-form" name="email-form" data-name="Email Form">

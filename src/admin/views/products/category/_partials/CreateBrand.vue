@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="columns is-multiline is-mobile">
     <section class="column is-full-mobile order-1-mobile">
-      <div class="section-wrapper">
+      <div class="box">
         <h3 class="section-heading">แบรนด์สินค้าในร้าน</h3>
         <label v-show="!brands.length">ไม่มีแบรนด์สินค้า</label>
 
@@ -22,13 +22,17 @@
       </div>
     </section>
     <section class="column is-full-mobile order-1-mobile">
-      <div class="section-wrapper">
+      <div class="box">
         <h3 class="section-heading">เพิ่มแบรนด์สินค้า</h3>
         <div class="form-group">
           <label>ชื่อแบรนด์</label>
-          <div class="input-group">
-            <input type="text" placeholder="ชื่อแบรนด์สินค้า" v-model="form.brand">
-            <button :disabled="!form.brand" type="button" class="btn success group right-column" @click="add">ยืนยัน</button>
+          <div class="field is-grouped">
+            <p class="control is-expanded">
+              <input class="input" type="text" v-model="form.brand" placeholder="ชื่อแบรนด์สินค้า">
+            </p>
+            <p class="control">
+              <button :disabled="!form.brand" class="btn success group" @click="add">ยืนยัน</button>
+            </p>
           </div>
         </div>
       </div>

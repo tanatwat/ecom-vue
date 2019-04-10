@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Vue from 'vue'
 import App from './App'
 import router from './router'
@@ -11,8 +12,10 @@ const backendUrl = 'http://localhost:9000'
 
 Vue.config.productionTip = false
 
-import VeeValidate from 'vee-validate'
+import th from 'vee-validate/dist/locale/th';
+import VeeValidate, { Validator } from 'vee-validate'
 Vue.use(VeeValidate);
+Validator.localize('th', th);
 
 import number from './misc/number'
 Vue.use(number)
@@ -57,3 +60,5 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+Vue.component('form-input', require('./components/Input.vue').default)

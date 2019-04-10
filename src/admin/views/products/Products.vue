@@ -2,7 +2,7 @@
 <div>
   <search-filter :can-toggle-view="true" :include-discount="true" v-on:search="addQueryParam" v-on:changeView="changeView"></search-filter>
   <pagination :meta="meta" v-on:switched="changePage" v-show="products.length"></pagination>
-  <section class="section-wrapper text-center" v-if="!products.length">
+  <section class="box text-center" v-if="!products.length">
     <h1 class="is-size-3">ไม่มีสินค้า</h1>
     <router-link class="is-size-4" to="/admin/products/upload">เพิ่มสินค้าที่นี่</router-link>
   </section>

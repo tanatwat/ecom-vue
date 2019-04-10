@@ -1,6 +1,6 @@
 <template>
 <div class="column is-full">
-  <div class="section-wrapper">
+  <div class="box">
     <div class="columns">
       <div class="column is-half">
         <p class="section-heading">ตัวเลือกของสินค้านี้</p>
@@ -8,12 +8,18 @@
           <span class="tag is-primary">{{ choice.name }}</span>
           <a class="tag fas fa-times" @click.prevent="remove(index)"></a>
         </div>
+        <p class="is-size-5" v-show="!choices.length">สินค้านี้ไม่มีตัวเลือก</p>
       </div>
-      <div class="form-group column is-half">
+
+      <div class="column is-half">
         <p class="section-heading">เพิ่มตัวเลือกสินค้า</p>
-        <div class="input-group">
-          <input type="text" v-model="form" placeholder="เช่น สี ไซส์...">
-          <button class="btn success group" type="button" @click="add()">เพิ่ม</button>
+        <div class="field is-grouped">
+          <p class="control is-expanded">
+            <input class="input" type="text" v-model="form" placeholder="เช่น สี ไซส์">
+          </p>
+          <p class="control">
+            <button :disabled="!form" class="btn success group" @click="add">เพิ่ม</button>
+          </p>
         </div>
       </div>
     </div>

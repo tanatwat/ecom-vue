@@ -6,20 +6,23 @@
 			<img src="../assets/Ecom.svg" alt="">
 		</div>
 		<router-link to="/admin" exact><i class="fas fa-home"></i>หน้าแรก</router-link>
-		<a :class="{'dropdown-toggled' : dropdown == 1}" @click.prevent="dropdownToggle(1)"><i class="fas fa-warehouse"></i>จัดการสินค้า</a>
-		<div class="menu-dropdown" v-show="dropdown == 1">
+		<hr>
+		<i class="menu-title">จัดการสินค้า</i>
+		<div>
 			<router-link to="/admin/products" exact><i class="fas fa-box"></i>สินค้าในร้าน</router-link>
 			<router-link to="/admin/products/upload"><i class="fas fa-plus"></i>เพิ่มสินค้า</router-link>
 			<router-link to="/admin/products/category"><i class="fas fa-th-large"></i>หมวดหมู่ & แบรนด์</router-link>
 			<router-link to="/admin/products/promotions"><i class="fas fa-receipt"></i>โปรโมชั่น</router-link>
 			<router-link to="/admin/products/stock"><i class="fas fa-boxes"></i>สต๊อก</router-link>
 		</div>
-		<a :class="{'dropdown-toggled' : dropdown == 2}" @click.prevent="dropdownToggle(2)"><i class="fas fa-desktop"></i>หน้าร้าน</a>
-		<div class="menu-dropdown" v-show="dropdown == 2">
+		<hr>
+		<i class="menu-title">จัดการหน้าร้าน</i>
+		<div>
 			<router-link to="/admin/banner"><i class="fas fa-ad"></i>แบนเนอร์</router-link>
 			<router-link to="/admin/showcase"><i class="fas fa-store"></i>ตู้แสดงสินค้า</router-link>
 			<router-link to="/admin/settings"><i class="fas fa-user"></i>ข้อมูลร้าน</router-link>
 		</div>
+		<hr>
 		<router-link to="/admin/orders"><i class="fas fa-list"></i>รายการสั่งซื้อ</router-link>
 		<router-link to="/admin/payment"><i class="fas fa-dollar-sign"></i>ช่องทางชำระเงิน</router-link>
 		<router-link to="/admin/shipping"><i class="fas fa-truck"></i>การจัดส่ง</router-link>
@@ -46,8 +49,13 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="container">
-			<h1 class="title">Title</h1>
+			<div class="page-title">
+				<h1 class="title">Title</h1>
+				<h2 class="subtitle">SubTitle</h2>
+			</div>
+
 			<router-view />
 		</div>
 	</div>

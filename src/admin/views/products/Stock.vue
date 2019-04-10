@@ -31,7 +31,7 @@
       </div>
       <div class="text-right"><a href="#" class="button secondary w-button">ล้างการค้นหา</a><a href="#" class="button submit w-button">ค้นหา</a></div>
     </div>
-    <div class="section-wrapper">
+    <div class="box">
       <h3 class="section-heading">สต๊อกสินค้า</h3>
       <ul class="no-style-list">
         <li class="product-list"><img src="https://d3e54v103j8qbb.cloudfront.net/img/image-placeholder.svg" alt="" class="product-list-img">

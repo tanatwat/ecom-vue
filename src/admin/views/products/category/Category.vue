@@ -14,10 +14,13 @@
 </template>
 
 <script>
-import Category from './_partials/Category'
-import Brand from './_partials/Brand'
+import Category from './_partials/CreateCategory'
+import Brand from './_partials/CreateBrand'
 export default {
-  components: {Category, Brand},
+  components: {
+    'category': Category,
+    'brand': Brand
+  },
   data() {
     return {
       tab: 1

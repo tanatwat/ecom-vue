@@ -1,19 +1,19 @@
-input, select, textarea
-  color: #555
-  width: 100%
-  padding-left: 8px
-  font-size: 1rem
-  border-radius: 5px
-  border: 1px solid #b5b5b5
-  background: #fff
-  box-shadow: inset 1px 1px 3px 1px #eee
-  &:hover
-    border-color: #6d9ce8
-  &:focus
-    border-color: #52baff
-    outline: none
-    transition: all .2s ease
-    box-shadow: 0 0 5px #0099ff, inset 1px 1px 3px 1px #fff
+// input, select, textarea
+//   color: #555
+//   width: 100%
+//   padding-left: 8px
+//   font-size: 1rem
+//   border-radius: 5px
+//   border: 1px solid #b5b5b5
+//   background: #fff
+//   box-shadow: inset 1px 1px 3px 1px #eee
+//   &:hover
+//     border-color: #6d9ce8
+//   &:focus
+//     border-color: #52baff
+//     outline: none
+//     transition: all .2s ease
+//     box-shadow: 0 0 5px #0099ff, inset 1px 1px 3px 1px #fff
 
 input, select
   line-height: 35px
@@ -22,6 +22,11 @@ input, select
 textarea
   min-height: 160px
   padding: 4px 8px !important
+
+.select.full
+  width: 100%
+  > select
+    width: 100%
 
 .form-group
   label
@@ -57,9 +62,11 @@ input.file-input
     display: inline-block
 
 .image-preview
+  margin: 0 auto
   position: relative
   width: 100%
   min-width: 200px
+  max-width: 200px
   height: 200px
   object-fit: contain
   display: flex
@@ -71,15 +78,8 @@ input.file-input
   i
     align-self: center
     font-size: 2rem
-
-.file-input-wrapper
-  > div:last-child
-    padding-left: 10px
-
-@media(max-width: 768px)
-  .file-input-wrapper
-    > div:last-child
-      padding-left: 0
+  &.active
+    background-color: #fff
 
 .input-group
   display: flex
@@ -117,15 +117,3 @@ input.file-input
 .button-wrapper
   > *:not(:last-child)
     margin-bottom: 15px
-  &.padding
-    padding-top: 15px
-
-@media(max-width: 767px)
-  .button-wrapper
-    &.padding-mobile
-      padding: 15px 0 0 0
-
-@media(max-width: 1024px)
-  .button-wrapper
-    &.padding-laptop
-      padding: 15px 0 0 0

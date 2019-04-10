@@ -1,9 +1,9 @@
 <template>
 <div class="column is-full">
-	<div class="section-wrapper">
+	<div class="box">
 		<section>
 			<h3 class="section-heading">รูปภาพสินค้า</h3>
-			<p class="is-size-4 text-center" style="padding:15px 0" v-if="!photos.length">ไม่มีรูปภาพสินค้า</p>
+			<p class="is-size-4 text-center" style="padding:15px 0" v-if="!photos.length">สินค้านี้ไม่มีรูปภาพ</p>
 			<div class="product-grid" style="padding:15px 0" v-else>
 				<div class="image-preview" v-for="(photo, index) in photos">
 					<img :src="photoUrl + photo.filename">

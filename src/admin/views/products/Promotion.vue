@@ -5,7 +5,7 @@
     <div class="tab-wrapper"><a href="#" class="tab-button w-button">Button Text</a><a href="#" class="tab-button tab-button-active w-button">Button Text</a></div>
     <div class="w-row">
       <div class="left-column w-col w-col-7">
-        <div class="section-wrapper">
+        <div class="box">
           <h3 class="section-heading">ส่วนลดของร้าน</h3>
           <ul class="no-style-list">
             <li class="collection-list w-clearfix">
@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="right-column w-col w-col-5">
-        <div class="section-wrapper">
+        <div class="box">
           <h3 class="section-heading">เพิ่มส่วนลดของร้าน</h3>
           <div class="w-form">
             <form id="email-form" name="email-form" data-name="Email Form">
@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-    <div class="section-wrapper">
+    <div class="box">
       <h3 class="section-heading">สินค้าลดราคา</h3>
       <ul class="no-style-list">
         <li class="product-list"><img src="https://d3e54v103j8qbb.cloudfront.net/img/image-placeholder.svg" alt="" class="product-list-img">
@@ -75,7 +75,7 @@
       </div>
       <div class="text-right"><a href="#" class="button secondary w-button">ล้างการค้นหา</a><a href="#" class="button submit w-button">ค้นหา</a></div>
     </div>
-    <div class="section-wrapper">
+    <div class="box">
       <h3 class="section-heading">สินค้าภายในร้าน</h3>
       <ul class="no-style-list">
         <li class="product-list"><img src="https://d3e54v103j8qbb.cloudfront.net/img/image-placeholder.svg" alt="" class="product-list-img">

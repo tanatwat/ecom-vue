@@ -1,12 +1,12 @@
 <template>
   <div class="columns is-multiline">
     <div class="column is-full">
-      <div class="section-wrapper">
+      <div class="box">
         {{ category.name }}
       </div>
     </div>
     <div class="column is-full">
-      <div class="section-wrapper">
+      <div class="box">
         <div class="action-wrapper between v-center">
           <h2 class="section-heading">หมวดหมู่รอง & ย่อย</h2>
           <button class="btn success group" name="button">บันทึก</button>

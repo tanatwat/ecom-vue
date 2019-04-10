@@ -7,7 +7,7 @@
     <form method="post" class="columns is-multiline" @submit.prevent="submit">
         <!-- DROPZONE -->
         <section class="column is-full">
-          <div class="section-wrapper">
+          <div class="box">
             <div class="form-group">
               <h3 class="section-heading">รูปภาพสินค้า</h3>
               <div class="dropzone margin-15-v" id="uploader">
@@ -21,7 +21,7 @@
         </section>
         <!-- CATEGORY -->
         <!-- <section class="column is-half">
-          <div class="section-wrapper">
+          <div class="box">
             <h3 class="section-heading">รายละเอียด</h3>
             <div class="form-group">
               <label>ชื่อสินค้า</label>
@@ -36,7 +36,7 @@
           </div>
         </section>
         <section class="column is-half">
-          <div class="section-wrapper">
+          <div class="box">
             <h3 class="section-heading">หมวดหมู่</h3>
             <div class="form-group">
               <div id="category" v-show="categories.length">
@@ -62,7 +62,7 @@
         </section> -->
         <!-- DESCRIPTION -->
         <!-- <section class="column is-full">
-          <div class="section-wrapper">
+          <div class="box">
             <div class="form-group">
               <h3 class="section-heading">คำอธิบายสินค้า</h3>
               <textarea placeholder="คำอธิบายสินค้าของคุณ..."></textarea>
@@ -71,7 +71,7 @@
         </section> -->
         <!-- CHOICE -->
         <!-- <section class="column is-half">
-          <div class="section-wrapper">
+          <div class="box">
             <h3 class="section-heading">ตัวเลือกสินค้า</h3>
             <div class="form-group">
               <label>เพิ่มตัวเลือก</label>
@@ -83,7 +83,7 @@
           </div>
         </section>
         <section class="column is-half">
-          <div class="section-wrapper">
+          <div class="box">
             <h3 class="section-heading">ตัวเลือกของสินค้านี้</h3>
             <div class="badge info" v-for="(item, index) in choices" :key="item.id">
               {{ item }}<button class="delete" @click="deleteChoice(index)"></button>
