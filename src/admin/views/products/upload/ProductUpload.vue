@@ -130,7 +130,7 @@
 </template>
 <script>
 import Dropzone from 'dropzone'
-import FileUpload from '../components/FileUpload'
+import FileUpload from '../../_components/FileUpload'
 Dropzone.autoDiscover = false
 export default {
 	components:{

@@ -1,3 +1,4 @@
+import Login from '../admin/_Login.vue'
 import Admin from '../admin/Admin.vue'
 import Dashboard from '../admin/views/Dashboard.vue'
 import Product from '../admin/views/products/Products.vue'
@@ -5,7 +6,7 @@ import ProductUpload from '../admin/views/products/upload/ProductUpload.vue'
 import ProductEdit from '../admin/views/products/edit/ProductEdit.vue'
 import Category from '../admin/views/products/category/Category.vue'
 import CategoryEdit from '../admin/views/products/CategoryEdit.vue'
-import Promotion from '../admin/views/products/Promotion.vue'
+import Promotion from '../admin/views/products/promotion/Promotion.vue'
 import Stock from '../admin/views/products/Stock.vue'
 
 import Order from '../admin/views/order/Order.vue'
@@ -21,10 +22,33 @@ import Shipping from '../admin/views/Shipping.vue'
 
 export default [
   {
+    path: '/admin/login',
+    component: Login,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem("token")) {
+        next({
+          path: '/admin'
+        })
+      } else {
+        next()
+      }
+    }
+  },
+  {
     path: '/admin',
     name: 'admin',
     component: Admin,
     redirect: { name: 'admin-home' },
+    meta: { requiresAuth: true },
+    beforeEnter: (to, from, next) => {
+      if (!localStorage.getItem("token")) {
+        next({
+          path: '/admin/login'
+        })
+      } else {
+        next()
+      }
+    },
     children: [
       {
         path: '',
@@ -89,5 +113,5 @@ export default [
         component: Shipping,
       },
     ],
-  },
+  }
 ];

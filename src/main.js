@@ -28,14 +28,23 @@ const progressBarOptions = {
 }
 Vue.use(VueProgressBar, progressBarOptions)
 
+let jwtToken = null
+
+if (localStorage.token) {
+  jwtToken = `Bearer ${localStorage.token}`
+}
+
 Vue.prototype.$http = axios.create({
   baseURL: backendUrl,
   data: {
     database: databaseName,
     siteName: siteName
+  },
+  headers: {
+    Authorization: jwtToken
   }
 });
-
+Vue.component('form-input', require('./components/Input.vue').default)
 new Vue({
   data() {
     return {
@@ -60,5 +69,3 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
-
-Vue.component('form-input', require('./components/Input.vue').default)

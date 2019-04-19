@@ -9,6 +9,7 @@
       :data-vv-as="validateAs" :type="type"
       v-validate="validate"
       :name="name"
+      :placeholder="placeholder"
       @input="$emit('input', $event.target.value)"/>
     </div>
     <p class="help is-danger">{{ errors.first(name) }}</p>
@@ -33,6 +34,10 @@ export default {
       type: String,
       required: true,
       default: 'text'
+    },
+    placeholder: {
+      type: String,
+      default: null
     },
     value: {
       type: String,

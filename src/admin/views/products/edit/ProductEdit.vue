@@ -28,7 +28,7 @@ import Category from './_partials/Category'
 import Brand from './_partials/Brand'
 import Photo from './_partials/Photo'
 import Choice from './_partials/Choice'
-import FileUpload from '../components/FileUpload'
+import FileUpload from '../../_components/FileUpload'
 
 export default {
   components: {

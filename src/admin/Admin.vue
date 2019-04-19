@@ -26,6 +26,7 @@
 		<router-link to="/admin/orders"><i class="fas fa-list"></i>รายการสั่งซื้อ</router-link>
 		<router-link to="/admin/payment"><i class="fas fa-dollar-sign"></i>ช่องทางชำระเงิน</router-link>
 		<router-link to="/admin/shipping"><i class="fas fa-truck"></i>การจัดส่ง</router-link>
+		<a @click.prevent="logout"><i class="fas fa-door"></i>ออกจากระบบ</a>
 
 	</nav>
 	<nav class="mobile-menu">
@@ -55,7 +56,6 @@
 				<h1 class="title">Title</h1>
 				<h2 class="subtitle">SubTitle</h2>
 			</div>
-
 			<router-view />
 		</div>
 	</div>
@@ -76,6 +76,11 @@ export default {
 			} else {
 				this.dropdown = id
 			}
+		},
+		logout() {
+			this.$root.loading = true
+			localStorage.removeItem('token')
+      this.$router.go()
 		}
 	},
 	created() {
