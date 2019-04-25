@@ -8,9 +8,15 @@
         <div class="data-list" v-for="(brand, index) in brands">
           <div class="data-title">
             <label v-show="formVisible !== index">{{ brand.name }}</label>
-            <div class="input-group"  v-show="formVisible == index" style="padding: 5px 2px">
-              <input type="text" v-model="brand.name">
-              <button class="btn success group" type="button" @click="edit(brand)">ยืนยัน</button>
+            <div class="field has-addons" v-show="formVisible == index" style="padding:5px 0">
+              <div class="control">
+                <input class="input" type="text" placeholder="ชื่อแบรนด์" v-model="brand.name">
+              </div>
+              <div class="control">
+                <button class="button is-success" @click="edit(brand)">
+                  ยืนยัน
+                </button>
+              </div>
             </div>
           </div>
           <div class="action-wrapper right action has-margin">
@@ -73,6 +79,7 @@ export default {
         this.$http.put('/brands/' + brand.id, {
           brand: brand.name
         }).then(response => {
+          this.formVisible = null
           toastr.success('อัพเดทแบรนด์แล้ว')
         })
       }

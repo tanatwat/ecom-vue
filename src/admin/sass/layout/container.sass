@@ -7,10 +7,11 @@ $dashboard-bg: repeating-linear-gradient(143deg, #5b6292, #4d5177)
   width: calc(100% - 220px)
   min-height: 100vh
   left: 220px
-  background: #f7f7f7
+  background: #fff
 
 .container
-  width: 70%
+  width: 50%
+  max-width: 780px
   padding: 20px 0
 
 .page-title
@@ -36,6 +37,13 @@ $dashboard-bg: repeating-linear-gradient(143deg, #5b6292, #4d5177)
   background: #fff
   border-radius: 5px
   padding: 8px 10px
+
+@media (max-width: 1440px)
+  .container
+    width: 65%
+@media (max-width: 1200px)
+  .container
+    width: 80%
 
 @media (max-width: 768px)
   .dashboard

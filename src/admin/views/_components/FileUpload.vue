@@ -53,6 +53,9 @@ export default {
       this.image_preview = null;
       this.$parent.image_preview = null;
     },
+    returnFile() {
+      return this.$refs.thumbnail.files[0]
+    }
   }
 }
 </script>

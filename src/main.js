@@ -29,9 +29,11 @@ const progressBarOptions = {
 Vue.use(VueProgressBar, progressBarOptions)
 
 let jwtToken = null
+let clientId = null
 
 if (localStorage.token) {
   jwtToken = `Bearer ${localStorage.token}`
+  clientId = localStorage.client
 }
 
 Vue.prototype.$http = axios.create({
@@ -41,10 +43,16 @@ Vue.prototype.$http = axios.create({
     siteName: siteName
   },
   headers: {
-    Authorization: jwtToken
+    Authorization: jwtToken,
+    Client: clientId
   }
 });
+
+/* GLOBAL COMPONENTS */
 Vue.component('form-input', require('./components/Input.vue').default)
+Vue.component('form-textarea', require('./components/Textarea.vue').default)
+
+
 new Vue({
   data() {
     return {
@@ -52,6 +60,7 @@ new Vue({
       loading: false,
       database: databaseName,
       siteName: siteName,
+      clientId: clientId,
       // 1 MB
       thumbnailSize: {
         file: 1048576,

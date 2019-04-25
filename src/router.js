@@ -13,7 +13,7 @@ const baseRoutes = [
   },
 ];
 
-const routes = baseRoutes.concat(AdminRoutes);
+const routes = AdminRoutes;
 
 const router = new Router({
   mode: 'history',
