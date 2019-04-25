@@ -14,6 +14,7 @@ $height: 200px
 
 .product-row
   display: flex
+  flex-direction: column
 
 @media(min-width: 768px)
   .product-grid
@@ -25,47 +26,64 @@ $height: 200px
     > *
        max-width: $width
 
-.product-img-wrapper
+.product-img-wrapper > img
   width: 100%
-  background: #fff
-  position: relative
-  img
+  height: 100%
+  max-height: $m-height
+  object-fit: contain
+
+.product-row
+  .product-card
+    display: flex 
+    padding: 6px 0
+    border-bottom: 1px solid #dedede
+    &:first-child
+      border-top: 1px solid #dedede
+  .product-img-wrapper   
+    min-width: 80px
+    width: 80px
+    height: 80px
+    margin-right: 10px
+  .product-details-wrapper, .product-img-wrapper
+    align-self: center
+
+.product-grid
+  .product-img-wrapper
     width: 100%
-    height: 100%
-    max-height: $m-height
-    object-fit: contain
+    background: #fff
+    position: relative
 
-.product-card
-  width: 100%
-  border-style: solid
-  border-width: 1px
-  border-color: #dedede
+  .product-card
+    width: 100%
+    border-style: solid
+    border-width: 1px
+    border-color: #dedede
 
-.product-details-wrapper
-  background-color: #fff
+  .product-details-wrapper
+    background-color: #f9f9f9
 
-.product-link
-  display: block
-  padding: 5px 8px 2px
-  color: #5789ff
-  font-size: 1.2rem
-  text-decoration: none
-  text-overflow: ellipsis
-  overflow: hidden
+  .product-link
+    display: block
+    padding: 5px 8px 2px
+    color: #5789ff
+    font-size: 1.2rem
+    text-decoration: none
+    text-overflow: ellipsis
+    overflow: hidden
 
-.product-detail
-  padding: 2px 8px
-  font-size: 1em
-  &.discount
-    color: #61b62f
+  .product-detail
+    padding: 2px 8px
+    font-size: 1em
+    &.discount
+      color: #61b62f
 
-.product-action-wrapper
-  padding: 5px 0
-  background-color: #f2f2f2
-  text-align: right
-  > *
-    padding: 5px 0 !important
-    margin: 0 10px
+  .product-action-wrapper
+    padding: 5px 0
+    background-color: #f2f2f2
+    text-align: right
+    > *
+      padding: 5px 0 !important
+      margin: 0 10px
 
 @media(min-width: 768px)
   .product-img-wrapper img

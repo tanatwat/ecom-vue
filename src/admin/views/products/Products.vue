@@ -27,116 +27,124 @@
 </div>
 </template>
 <script>
-import SearchFilter from '../../../components/Filter'
-import Pagination from '../../../components/Pagination'
+import SearchFilter from "../../../components/Filter";
+import Pagination from "../../../components/Pagination";
 export default {
-	components: {
-		SearchFilter,
-		Pagination
-	},
-	data() {
-		return {
-			products: [],
-			meta: [],
-			imgUrl: this.$root.url + '/file/product/thumbnail/',
-			query: {
-				name: null,
-				orderBy: null,
-				category: null,
-				subcategory: null,
-				type: null,
-				maxPrice: null,
-				minPrice: null,
-				discount: null,
-				page: null,
-			},
-			view: 'grid'
-		}
-	},
-	methods: {
-		addQueryParam(params) {
-			_.mapValues(this.query, (val) => {
-				val = null
-			})
-			this.query.name = params.name
-			this.query.orderBy = params.order
-			this.query.category = params.category
-			this.query.subcategory = params.subcategory
-			this.query.type = params.type
-			this.query.maxPrice = params.max
-			this.query.minPrice = params.min
-			this.query.discount = params.discount ? true : null
-			this.query.page = null
-			this.getProduct()
-		},
-		changePage(page) {
-			this.query.page = page
-			this.getProduct()
-		},
-		changeView(view) {
-			this.view = view
-		},
-		getProduct() {
-			this.products = []
-			this.$http.get('/products', {
-				params: {
-					name: this.query.name,
-					order: this.query.orderBy,
-					c: this.query.category,
-					sub: this.query.subcategory,
-					type: this.query.type,
-					max: this.query.maxPrice,
-					min: this.query.minPrice,
-					dc: this.query.discount,
-					page: this.query.page ? this.query.page : 1,
-					db: this.$root.database,
-				}
-			}).then(response => {
-				this.products = response.data.data
-				this.meta = {
-          last_page: response.data.lastPage,
-          current_page: response.data.page,
-          total_items: response.data.total,
-          page_items: response.data.perPage
-        }
-			}, response => {
-				toastr.error('เกิดข้อผิดพลาด')
-			})
-		},
-		remove(index, uid) {
-			if (confirm('คุณแน่ใจหรือไม่ว่าต้องการจะลบสินค้านี้?')) {
-				this.$http.delete('/products/' + uid).then(response => {
-					toastr.success('ลบสินค้าแล้ว')
-					this.getProduct()
-				}, response => {
-					toastr.error('เกิดข้อผิดพลาด')
-				})
-			}
-		},
-		saleCalc(price, discount) {
-			var val = (price - discount) / ((price + discount) / 2)
-			var result = val * 100
-			return Math.round(result);
-		},
-		edit(uid) {
-      this.$router.replace('/admin/products/' + uid + '/edit')
-		},
-		// addToHome(uid, index) {
-		// 	this.$http.put(this.$root.url + '/admin/product/feature/' + uid).then(response => {
-		// 		if (this.products[index].featured == true) {
-		// 			this.products[index].featured = false
-		// 			toastr.success('ลบออกจากหน้าแรกแล้ว')
-		// 		} else {
-		// 			this.products[index].featured = true
-		// 			toastr.success('เพิ่มในหน้าแรกแล้ว')
-		// 		}
-		// 	}, response => {
-		// 		toastr.error('เกิดข้อผิดพลาด')
-		// 	})
-		// }
-	},
-	created() {
-		this.getProduct()
-	}
-}
+  components: {
+    SearchFilter,
+    Pagination
+  },
+  data() {
+    return {
+      products: [],
+      meta: [],
+      imgUrl: this.$root.url + "/file/product/thumbnail/",
+      query: {
+        name: null,
+        orderBy: null,
+        category: null,
+        subcategory: null,
+        type: null,
+        maxPrice: null,
+        minPrice: null,
+        discount: null,
+        page: null
+      },
+      view: "grid"
+    };
+  },
+  methods: {
+    addQueryParam(params) {
+      _.mapValues(this.query, val => {
+        val = null;
+      });
+      this.query.name = params.name;
+      this.query.orderBy = params.order;
+      this.query.category = params.category;
+      this.query.subcategory = params.subcategory;
+      this.query.type = params.type;
+      this.query.maxPrice = params.max;
+      this.query.minPrice = params.min;
+      this.query.discount = params.discount ? true : null;
+      this.query.page = null;
+      this.getProduct();
+    },
+    changePage(page) {
+      this.query.page = page;
+      this.getProduct();
+    },
+    changeView(view) {
+      this.view = view;
+    },
+    getProduct() {
+      this.products = [];
+      this.$http
+        .get("/products", {
+          params: {
+            name: this.query.name,
+            order: this.query.orderBy,
+            c: this.query.category,
+            sub: this.query.subcategory,
+            type: this.query.type,
+            max: this.query.maxPrice,
+            min: this.query.minPrice,
+            dc: this.query.discount,
+            page: this.query.page ? this.query.page : 1,
+            db: this.$root.database
+          }
+        })
+        .then(
+          response => {
+            this.products = response.data.data;
+            this.meta = {
+              last_page: response.data.lastPage,
+              current_page: response.data.page,
+              total_items: response.data.total,
+              page_items: response.data.perPage
+            };
+          },
+          response => {
+            toastr.error("เกิดข้อผิดพลาด");
+          }
+        );
+    },
+    remove(index, uid) {
+      if (confirm("คุณแน่ใจหรือไม่ว่าต้องการจะลบสินค้านี้?")) {
+        this.$http.delete("/products/" + uid).then(
+          response => {
+            toastr.success("ลบสินค้าแล้ว");
+            this.getProduct();
+          },
+          response => {
+            toastr.error("เกิดข้อผิดพลาด");
+          }
+        );
+      }
+    },
+    saleCalc(price, discount) {
+      var val = (price - discount) / ((price + discount) / 2);
+      var result = val * 100;
+      return Math.round(result);
+    },
+    edit(uid) {
+      this.$router.replace("/admin/products/" + uid + "/edit");
+    }
+    // addToHome(uid, index) {
+    // 	this.$http.put(this.$root.url + '/admin/product/feature/' + uid).then(response => {
+    // 		if (this.products[index].featured == true) {
+    // 			this.products[index].featured = false
+    // 			toastr.success('ลบออกจากหน้าแรกแล้ว')
+    // 		} else {
+    // 			this.products[index].featured = true
+    // 			toastr.success('เพิ่มในหน้าแรกแล้ว')
+    // 		}
+    // 	}, response => {
+    // 		toastr.error('เกิดข้อผิดพลาด')
+    // 	})
+    // }
+  },
+  created() {
+    this.getProduct();
+  }
+};
 </script>

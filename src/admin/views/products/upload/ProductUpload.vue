@@ -99,7 +99,6 @@
 				</div>
 				<step-button :disable="!image_preview" v-on:next="steps++" v-on:prev="steps--"></step-button>
 			</div>
-
 		</section>
 
 		<section class="column is-full" v-show="steps == 4">
@@ -113,9 +112,8 @@
 						</div>
 					</div>
 				</div>
-				<step-button :disable="!image_preview" v-on:next="steps++"></step-button>
+				<step-button :disable="!image_preview" :next-button="false" :submit-button="true"></step-button>
 			</div>
-
 		</section>
 
 
@@ -146,154 +144,151 @@
 				<p class="subtitle" v-show="!choices.length">ไม่มีตัวเลือก</p>
 			</div>
 		</section> -->
-		<section class="column is-full" v-show="steps == 4">
-			<button type="submit" class="btn success form-submit is-pulled-right">อัพโหลดสินค้า</button>
-		</section>
 	</form>
 </template>
 <script>
-import StepButton from './_StepButton.vue'
-import Dropzone from 'dropzone'
-import FileUpload from '../../_components/FileUpload'
-Dropzone.autoDiscover = false
+import StepButton from "./_StepButton.vue";
+import Dropzone from "dropzone";
+import FileUpload from "../../_components/FileUpload";
+Dropzone.autoDiscover = false;
 export default {
-	components:{
-		FileUpload,
-		StepButton
-	},
-	data() {
-		return {
-			name: null,
-			price: null,
-			brand: null,
-			description: null,
-			category: null,
-			subcategory: null,
-			type: null,
-			choices: [],
-			form: {
-				choice: null
-			},
-			brands: [],
-			categories: [],
-			selectChoices: {
-				subcategories: [],
-				types: [],
-			},
-			image_preview: null,
-			steps: 1
-		}
-	},
-	methods: {
-		initDropzone: function() {
-			self = this;
-			self.$nextTick(function() {
-				self.image = new Dropzone('#uploader', {
-					method: 'post',
-					url: self.$root.backendUrl + '/products',
-					autoProcessQueue: false,
-					uploadMultiple: true,
-					parallelUploads: 7,
-					maxFiles: 7,
-					paramName: 'files',
-					maxFilesize: 2,
-					acceptedFiles: 'image/*',
-					addRemoveLinks: true,
-					dictRemoveFile: '×',
-					dictCancelUpload: '×',
-					headers: {
-						'Authorization': `Bearer ${localStorage.token}`,
-					},
-					init: function() {
-						this.on('addedfile', function(file) {
-							if (this.files.length > 6) {
-								this.removeFile(this.files[0]);
-							}
-							if (file.size > self.$root.photoSize.file) {
-								alert('ขนาดรูปต้องไม่เกินรูปละ' + self.$root.photoSize.string);
-								this.removeFile(file)
-							}
-						});
-					},
-					sendingmultiple: function(data, xhr, formData) {
-						formData.append("name", self.name);
-						formData.append("price", self.price);
-						formData.append("description", self.description);
-						formData.append("client_id", self.$root.clientId);
-						formData.append("brand_id", self.brand);
-						formData.append("category_id", self.category.id);
-						if (self.subcategory) {
-							formData.append("subcategory_id", self.subcategory.id);
-							if (self.type) {
-								formData.append("type_id", self.type.id);
-							}
-						}
-						formData.append("choice", JSON.stringify(self.choices));
-						formData.append("thumbnail", self.$refs.thumbnail.returnFile());
-					},
-					processing: function() {
-						self.$Progress.start();
-						self.$root.loading = true;
-					},
-					success: function() {
-						toastr.success('อัพโหลดเรียบร้อย', {
-							"preventDuplicates": true
-						});
-						this.removeFile(this.files[0]);
-						self.$Progress.finish();
-						document.location.href = '/admin/products/upload';
-						self.$root.loading = false;
-					},
-					error: function() {
-						self.$Progress.fail();
-						self.$root.loading = false;
-						toastr.error('เกิดข้อผิดพลาด');
-						this.removeFile(this.files[0]);
-					},
-				});
-			});
-		},
-		submit() {
-			if (!self.$refs.thumbnail.returnFile()) {
-				alert('โปรดเลือกรูปภาพขนาดย่อ')
-			} else {
-				if (this.errors.any()) {
-					alert('โปรดแก้ไขแบบฟอร์มก่อน')
-				} else {
-					self.image.processQueue()
-				}
-			}
-		},
-		get() {
-			this.$http.get('/get/product_upload_data').then(response => {
-				this.categories = response.data.categories
-				this.brands = response.data.brands
-			})
-		},
-		selectCategory(category) {
-			this.selectChoices.subcategories = category.subcategory
-			this.subcategory = null
-			this.type = null
-			this.selectChoices.types = []
-		},
-		selectSubcategory(subcategory) {
-			this.selectChoices.types = subcategory.type
-			this.type = null
-		},
-		addChoice() {
-			this.choices.push({
-				name: this.form.choice,
-				qty: 1
-			})
-			this.form.choice = null
-		},
-		deleteChoice(index) {
-			this.choices.splice(index, 1)
-		}
-	},
-	created() {
-		this.initDropzone()
-		this.get()
-	}
-}
+  components: {
+    FileUpload,
+    StepButton
+  },
+  data() {
+    return {
+      name: null,
+      price: null,
+      brand: null,
+      description: null,
+      category: null,
+      subcategory: null,
+      type: null,
+      choices: [],
+      form: {
+        choice: null
+      },
+      brands: [],
+      categories: [],
+      selectChoices: {
+        subcategories: [],
+        types: []
+      },
+      image_preview: null,
+      steps: 1
+    };
+  },
+  methods: {
+    initDropzone: function() {
+      self = this;
+      self.$nextTick(function() {
+        self.image = new Dropzone("#uploader", {
+          method: "post",
+          url: self.$root.backendUrl + "/products",
+          autoProcessQueue: false,
+          uploadMultiple: true,
+          parallelUploads: 7,
+          maxFiles: 7,
+          paramName: "files",
+          maxFilesize: 2,
+          acceptedFiles: "image/*",
+          addRemoveLinks: true,
+          dictRemoveFile: "×",
+          dictCancelUpload: "×",
+          headers: {
+            Authorization: `Bearer ${localStorage.token}`
+          },
+          init: function() {
+            this.on("addedfile", function(file) {
+              if (this.files.length > 6) {
+                this.removeFile(this.files[0]);
+              }
+              if (file.size > self.$root.photoSize.file) {
+                alert("ขนาดรูปต้องไม่เกินรูปละ" + self.$root.photoSize.string);
+                this.removeFile(file);
+              }
+            });
+          },
+          sendingmultiple: function(data, xhr, formData) {
+            formData.append("name", self.name);
+            formData.append("price", self.price);
+            formData.append("description", self.description);
+            formData.append("client_id", self.$root.clientId);
+            formData.append("brand_id", self.brand);
+            formData.append("category_id", self.category.id);
+            if (self.subcategory) {
+              formData.append("subcategory_id", self.subcategory.id);
+              if (self.type) {
+                formData.append("type_id", self.type.id);
+              }
+            }
+            formData.append("choice", JSON.stringify(self.choices));
+            formData.append("thumbnail", self.$refs.thumbnail.returnFile());
+          },
+          processing: function() {
+            self.$Progress.start();
+            self.$root.loading = true;
+          },
+          success: function() {
+            toastr.success("อัพโหลดเรียบร้อย", {
+              preventDuplicates: true
+            });
+            this.removeFile(this.files[0]);
+            self.$Progress.finish();
+            document.location.href = "/admin/products/upload";
+            self.$root.loading = false;
+          },
+          error: function() {
+            self.$Progress.fail();
+            self.$root.loading = false;
+            toastr.error("เกิดข้อผิดพลาด");
+            this.removeFile(this.files[0]);
+          }
+        });
+      });
+    },
+    submit() {
+      if (!self.$refs.thumbnail.returnFile()) {
+        alert("โปรดเลือกรูปภาพขนาดย่อ");
+      } else {
+        if (this.errors.any()) {
+          alert("โปรดแก้ไขแบบฟอร์มก่อน");
+        } else {
+          self.image.processQueue();
+        }
+      }
+    },
+    get() {
+      this.$http.get("/get/product_upload_data").then(response => {
+        this.categories = response.data.categories;
+        this.brands = response.data.brands;
+      });
+    },
+    selectCategory(category) {
+      this.selectChoices.subcategories = category.subcategory;
+      this.subcategory = null;
+      this.type = null;
+      this.selectChoices.types = [];
+    },
+    selectSubcategory(subcategory) {
+      this.selectChoices.types = subcategory.type;
+      this.type = null;
+    },
+    addChoice() {
+      this.choices.push({
+        name: this.form.choice,
+        qty: 1
+      });
+      this.form.choice = null;
+    },
+    deleteChoice(index) {
+      this.choices.splice(index, 1);
+    }
+  },
+  created() {
+    this.initDropzone();
+    this.get();
+  }
+};
 </script>
