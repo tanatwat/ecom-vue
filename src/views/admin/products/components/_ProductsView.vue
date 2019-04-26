@@ -1,13 +1,13 @@
 <template lang="html">
 <div>
-  <search-filter :can-toggle-view="true" :include-discount="true" v-on:search="addQueryParam" v-on:changeView="changeView"></search-filter>
+  <search-filter :can-toggle-view="true" :include-discount="true" v-on:search="addQueryParam" v-on:changeView="view = $event"></search-filter>
   <pagination :meta="meta" v-on:switched="changePage" v-show="products.length"></pagination>
   <section class="box text-center" v-if="!products.length">
     <h1 class="is-size-3">ไม่มีสินค้า</h1>
     <router-link class="is-size-4" to="/admin/products/upload">เพิ่มสินค้าที่นี่</router-link>
   </section>
   <section style="padding: 30px 0" v-else>
-    <div :class="'product-' + view">
+    <div :class="`product-${view}`">
       <div class="product-card" v-for="(item, index) in products">
         <div class="product-img-wrapper">
           <img :src="'https://s3-ap-southeast-1.amazonaws.com/images.peach/thumbnail/' + item.thumbnail" alt="">
@@ -16,6 +16,10 @@
           <a class="product-link">{{ item.name }}</a>
           <p class="product-detail">{{ $number.format(item.price) + ' บาท' }}</p>
         </div>
+        <div class="product-action-wrapper">
+          <button class="btn-icon primary fas fa-pen" type="button" @click="edit(item.uid)"></button>
+          <button class="btn-icon error fas fa-trash-alt" type="button" @click="remove(index, item.uid)"></button>
+        </div>
       </div>
     </div>
   </section>
@@ -23,8 +27,8 @@
 </div>
 </template>
 <script>
-import SearchFilter from "../../../../components/Filter";
-import Pagination from "../../../../components/Pagination";
+import SearchFilter from "../../_components/Filter";
+import Pagination from "../../_components/Pagination";
 export default {
   components: {
     SearchFilter,
@@ -46,7 +50,7 @@ export default {
         discount: null,
         page: null
       },
-      view: 'row'
+      view: "grid"
     };
   },
   methods: {
@@ -125,6 +129,19 @@ export default {
     edit(uid) {
       this.$router.replace("/admin/products/" + uid + "/edit");
     }
+    // addToHome(uid, index) {
+    // 	this.$http.put(this.$root.url + '/admin/product/feature/' + uid).then(response => {
+    // 		if (this.products[index].featured == true) {
+    // 			this.products[index].featured = false
+    // 			toastr.success('ลบออกจากหน้าแรกแล้ว')
+    // 		} else {
+    // 			this.products[index].featured = true
+    // 			toastr.success('เพิ่มในหน้าแรกแล้ว')
+    // 		}
+    // 	}, response => {
+    // 		toastr.error('เกิดข้อผิดพลาด')
+    // 	})
+    // }
   },
   created() {
     this.getProduct();

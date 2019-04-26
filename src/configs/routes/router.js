@@ -1,17 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from './client/Home'
-import AdminRoutes from './routes/AdminRoute'
+import AdminRoutes from './AdminRoute'
 
 Vue.use(Router)
 
-const baseRoutes = [
-  {
-    path: '/',
-    component: Home,
-  },
-];
+// const baseRoutes = [
+//   {
+//     path: '/',
+//     component: Home,
+//   },
+// ];
 
 const routes = AdminRoutes;
 

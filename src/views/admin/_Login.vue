@@ -2,7 +2,7 @@
   <div class="background">
     <div class="container login-window">
       <div style="text-align:center; padding:10px">
-        <img src="../assets/Ecom.svg" alt="" style="max-width:60%">
+        <img src="../../assets/imgs/Ecom.svg" alt="" style="max-width:60%">
       </div>
       <form class="" method="post" @submit.prevent="login">
         <form-input label="Email" name="email" type="email" validate="required|email" validate-as="ข้อมูล"

@@ -3,7 +3,7 @@
 	<vue-progress-bar></vue-progress-bar>
 	<nav class="menu">
 		<div class="logo">
-			<img src="../assets/Ecom.svg" alt="">
+			<img src="../../assets/imgs/Ecom.svg" alt="">
 		</div>
 		<router-link to="/admin" exact><i class="fas fa-home"></i>หน้าแรก</router-link>
 		<hr>
@@ -31,7 +31,7 @@
 	</nav>
 	<nav class="mobile-menu">
 		<div class="logo">
-			<img src="../assets/Ecom.svg" alt="">
+			<img src="../../assets/imgs/Ecom.svg" alt="">
 		</div>
 		<i class="fas fa-bars menu-btn"></i>
 	</nav>
@@ -111,5 +111,5 @@ export default {
 }
 </script>
 <style lang="sass">
-  @import './sass/admin.sass'
+  @import '../../assets/sass/admin.sass'
 </style>

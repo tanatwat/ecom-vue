@@ -1,8 +1,8 @@
 /* eslint-disable */
 import Vue from 'vue'
 import App from './App'
-import router from './router'
-import store from './store'
+import router from './configs/routes/router'
+import store from './configs/store'
 import axios from 'axios'
 import lodash from 'lodash'
 
@@ -49,8 +49,8 @@ Vue.prototype.$http = axios.create({
 });
 
 /* GLOBAL COMPONENTS */
-Vue.component('form-input', require('./components/Input.vue').default)
-Vue.component('form-textarea', require('./components/Textarea.vue').default)
+Vue.component('form-input', require('./views/admin/_components/Input.vue').default)
+Vue.component('form-textarea', require('./views/admin/_components/Textarea.vue').default)
 
 
 new Vue({
