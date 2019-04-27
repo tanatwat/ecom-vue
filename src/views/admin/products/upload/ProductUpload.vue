@@ -1,5 +1,5 @@
 <template lang="html">
-	<form method="post" class="columns is-multiline" @submit.prevent="submit">
+	<div class="columns is-multiline">
 		<ul class="list-unstyled multi-steps" style="padding:10px 0">
 			<li :class="{'is-active' : steps == 1}">หมวดหมู่</li>
 			<li :class="{'is-active' : steps == 2}">รายละเอียด</li>
@@ -12,7 +12,7 @@
 				<div class="field" v-show="categories.length">
 					<label class="label">หมวดหมู่</label>
 					<div class="select full">
-						<select required v-model="category" @change="selectCategory(category)">
+						<select v-model="category" @change="selectCategory(category)">
 							<option :value="category" v-for="category in categories" :key="category.id">
 								{{ category.name }}</option>
 						</select>
@@ -39,7 +39,7 @@
 				<div class="field" v-show="brands.length">
 					<label class="label">แบรนด์</label>
 					<div class="select full">
-						<select required v-model="brand">
+						<select v-model="brand">
 							<option :value="brand.id" v-for="brand in brands" :key="brand.id">{{ brand.name }}</option>
 						</select>
 					</div>
@@ -112,7 +112,7 @@
 						</div>
 					</div>
 				</div>
-				<step-button :disable="!image_preview" :next-button="false" :submit-button="true"></step-button>
+				<step-button :disable="!image_preview" :next-button="false" :submit-button="true" v-on:prev="steps--" v-on:submit-form="submit"></step-button>
 			</div>
 		</section>
 
@@ -144,7 +144,7 @@
 				<p class="subtitle" v-show="!choices.length">ไม่มีตัวเลือก</p>
 			</div>
 		</section> -->
-	</form>
+	</div>
 </template>
 <script>
 import StepButton from "./_StepButton.vue";

@@ -4,7 +4,7 @@ import App from './App'
 import router from './configs/routes/router'
 import store from './configs/store'
 import axios from 'axios'
-import lodash from 'lodash'
+window._ = require('lodash');
 
 const databaseName = 'ecom.'
 const siteName = 'testing'
@@ -49,8 +49,12 @@ Vue.prototype.$http = axios.create({
 });
 
 /* GLOBAL COMPONENTS */
+Vue.component('modal', require('./views/admin/_components/Modal.vue').default)
 Vue.component('form-input', require('./views/admin/_components/Input.vue').default)
 Vue.component('form-textarea', require('./views/admin/_components/Textarea.vue').default)
+Vue.component('products', require('./views/admin/_components/ProductContainer.vue').default)
+Vue.component('search-filter', require('./views/admin/_components/Filter.vue').default)
+Vue.component('pagination', require('./views/admin/_components/Pagination.vue').default)
 
 
 new Vue({
@@ -58,7 +62,7 @@ new Vue({
     return {
       backendUrl: backendUrl,
       loading: false,
-      database: databaseName,
+      showModal: false,
       siteName: siteName,
       clientId: clientId,
       // 1 MB

@@ -32,9 +32,14 @@ $height: 200px
   max-height: $m-height
   object-fit: contain
 
+.product-card
+  position: relative
+  .product-card-sub
+    align-self: center
+
 .product-row
   .product-card
-    display: flex 
+    display: flex
     padding: 6px 0
     border-bottom: 1px solid #dedede
     &:first-child
@@ -44,24 +49,26 @@ $height: 200px
     width: 80px
     height: 80px
     margin-right: 10px
-  .product-details-wrapper, .product-img-wrapper
-    align-self: center
+  .product-action-wrapper
+    display: flex
+    padding: 5px 0
+    > *
+      margin-right: 10px
+    > *:not(:first-child)
+      margin-left: 10px
 
 .product-grid
   .product-img-wrapper
     width: 100%
     background: #fff
     position: relative
-
   .product-card
     width: 100%
     border-style: solid
     border-width: 1px
     border-color: #dedede
-
   .product-details-wrapper
     background-color: #f9f9f9
-
   .product-link
     display: block
     padding: 5px 8px 2px
@@ -70,13 +77,11 @@ $height: 200px
     text-decoration: none
     text-overflow: ellipsis
     overflow: hidden
-
   .product-detail
     padding: 2px 8px
     font-size: 1em
     &.discount
       color: #61b62f
-
   .product-action-wrapper
     padding: 5px 0
     background-color: #f2f2f2
