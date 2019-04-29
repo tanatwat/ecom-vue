@@ -45,6 +45,7 @@ export default {
       }
       if (page !== this.meta.current_page) {
         this.$emit('switched', page)
+        this.$parent.meta.current_page = page;
       }
     },
 

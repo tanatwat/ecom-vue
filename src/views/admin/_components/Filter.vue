@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="action-wrapper between" style="margin-bottom:15px">
+    <div class="action-wrapper between">
       <div>
         <button class="btn primary" @click.prevent="formVisible = !formVisible">
           ตัวกรอง&nbsp;
@@ -23,7 +23,7 @@
       </div>
     </div>
     <transition name="fade">
-      <div v-show="formVisible" class="box columns is-multiline filter is-marginless">
+      <div v-show="formVisible" class="box columns is-multiline filter is-marginless" style="margin-top:15px !important">
         <div class="column is-6">
           <div class="form-group">
             <label class="is-size-5">ชื่อสินค้า</label>
@@ -137,6 +137,9 @@
         </div>
       </div>
     </transition>
+
+    <p style="margin-top:20px">สินค้า&nbsp;{{ $parent.meta.total_items }}&nbsp;รายการ&nbsp;ทั้งหมด&nbsp;{{ $parent.meta.last_page }}&nbsp;หน้า</p>
+
   </div>
 </template>
 
