@@ -1,6 +1,5 @@
 <template>
   <div id="discount">
-
     <div v-show="discountProducts.length">
       <h2 class="content is-size-4 section-heading">สินค้าลดราคา</h2>
       <button class="btn error" @click="cancleAllPromotion">ยกเลิกโปรโมชั่นทั้งหมด</button>

@@ -4,9 +4,9 @@
       display: flex
       width: 100%
       padding: 10px
-      border-bottom: 1px solid #dedede
-      &:first-child
-         border-top: 1px solid #dedede
+      background-color: #f5f5f5
+      margin-bottom: 10px
+      border-radius: 5px
    .collection-title
       color: #8393fb
       min-width: 80px
@@ -14,8 +14,20 @@
    .collection-action-bar
       flex-grow: 1
       text-align: right
+      align-self: center
       button:not(:last-child)
          margin-right: 8px
+   .collection-categories
+      min-width: 80px
+      .category
+         color: #8393fb
+         font-size: 1.1rem
+      .subcategory
+         padding-left: .5rem
+         color: #777777
+      .type
+         padding-left: 1rem
+         color: #c2c2c2
 
 @media (max-width: 425px)
    .collection-list

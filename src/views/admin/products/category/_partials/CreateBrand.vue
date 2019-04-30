@@ -6,15 +6,12 @@
       <i class="fas fa-plus"></i>
     </button>
     </div>
-    <section class="column is-full-mobile order-1-mobile">
-      <div class="box">
-        <h3 class="section-heading">แบรนด์สินค้าในร้าน</h3>
-        <label v-show="!brands.length">ไม่มีแบรนด์สินค้า</label>
-        <div class="data-list" v-for="(brand, index) in brands">
-          <div class="data-title">
-            <label v-show="formVisible !== index">{{ brand.name }}</label>
-            <div class="field has-addons" v-show="formVisible == index" style="padding:5px 0">
-              <div class="control">
+
+    <div class="collection-list column" v-if="brands.length">
+      <div v-for="(brand, index) in brands">
+        <div class="collection-title" v-show="formVisible !== index">{{ brand.name }}</div>
+                     <div class="field has-addons no-margin" v-show="formVisible == index">
+              <div class="control is-expanded">
                 <input class="input" type="text" placeholder="ชื่อแบรนด์" v-model="brand.name">
               </div>
               <div class="control">
@@ -23,14 +20,16 @@
                 </button>
               </div>
             </div>
-          </div>
-          <div class="action-wrapper right action has-margin">
-            <button class="btn-icon primary fas fa-pen" @click="toggleForm(index)"></button>
-            <button class="btn-icon error fas fa-trash-alt" @click="remove(brand.id, index)"></button>
-          </div>
+
+        <div class="collection-action-bar">
+            <button class="btn-flat primary fas" :class="formVisible !== index ? 'fa-pen' : 'fa-times active'" @click="toggleForm(index)"></button>
+            <button class="btn-flat primary fas fa-trash-alt" @click="remove(brand.id, index)"></button>
         </div>
       </div>
-    </section>
+    </div>
+    <div class="column text-center" v-else>
+      <h3 class="is-size-4">ไม่มีแบรนด์สินค้า</h3>
+    </div>
 
     <modal>
       <header slot="header" class="modal-card-head">
@@ -87,17 +86,16 @@ export default {
       });
     },
     add() {
-      if (confirm("เพิ่มแบรนด์สินค้านี้?")) {
-        this.$http
-          .post("/brands", {
-            brand: this.form.brand
-          })
-          .then(response => {
-            this.form.brand = null;
-            this.brands.push(response.data);
-            toastr.success("เพิ่มแบรนด์สินค้าแล้ว");
-          });
-      }
+      this.$http
+        .post("/brands", {
+          brand: this.form.brand
+        })
+        .then(response => {
+          this.form.brand = null;
+          this.brands.push(response.data);
+          this.$root.showModal = false;
+          toastr.success("เพิ่มแบรนด์สินค้าแล้ว");
+        });
     },
     edit(brand) {
       if (confirm("แก้ไขชื่อแบรนด์นี้?")) {

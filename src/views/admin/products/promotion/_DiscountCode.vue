@@ -6,7 +6,7 @@
         <i class="fas fa-plus"></i>
       </button>
     </div>
-    <section class="collection-list column" v-if="codes.length">
+    <div class="collection-list column" v-if="codes.length">
       <div v-for="(code, index) in codes">
         <div class="collection-title">{{ code.code }}</div>
         <div>ลด&nbsp;{{ code.value }}{{ code.type == 'cost' ? ' บาท' : '%' }}</div>
@@ -14,7 +14,7 @@
           <button class="btn-flat primary fas fa-trash-alt" @click="removeCode(code.id, index)"></button>
         </div>
       </div>
-    </section>
+    </div>
     <div class="column text-center" v-else>
       <h3 class="is-size-4">ไม่มีโค๊ดลดราคา</h3>
     </div>
