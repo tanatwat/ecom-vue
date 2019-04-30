@@ -1,10 +1,12 @@
 <template>
-  <div id="code">
-    <button class="btn primary" @click="modalToggle()" style="margin-top:7px">
-      เพิ่มโค๊ดส่วนลด&nbsp;
-      <i class="fas fa-plus"></i>
-    </button>
-    <section class="collection-list">
+  <div class="columns is-multiline" id="code">
+    <div class="column is-full">
+      <button class="btn primary" @click="$root.showModal = true">
+        เพิ่มโค๊ดส่วนลด&nbsp;
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+    <section class="collection-list column" v-if="codes.length">
       <div v-for="(code, index) in codes">
         <div class="collection-title">{{ code.code }}</div>
         <div>ลด&nbsp;{{ code.value }}{{ code.type == 'cost' ? ' บาท' : '%' }}</div>
@@ -13,6 +15,9 @@
         </div>
       </div>
     </section>
+    <div class="column text-center" v-else>
+      <h3 class="is-size-4">ไม่มีโค๊ดลดราคา</h3>
+    </div>
     <modal>
       <header slot="header" class="modal-card-head">
         <p class="modal-card-title">เพิ่มโค๊ดส่วนลด</p>
@@ -22,7 +27,7 @@
         <section class="modal-card-body">
           <div class="margin-center" style="max-width: 350px">
             <div class="field">
-              <label for class="label">โค๊ดส่วนลด</label>
+              <label for class="label is-medium">โค๊ดส่วนลด</label>
               <p class="control">
                 <input
                   required
@@ -68,7 +73,7 @@
           </div>
         </section>
         <footer class="modal-card-foot action-wrapper right has-margin" slot="footer">
-          <button class="btn success" type="submit">ยืนยัน</button>
+          <button class="btn success" type="submit" :disabled="!form.value || !form.code">ยืนยัน</button>
           <button class="btn primary" type="button" @click="$root.showModal = false">ยกเลิก</button>
         </footer>
       </form>
@@ -79,11 +84,11 @@
 export default {
   data() {
     return {
-       codes: [],
+      codes: [],
       form: {
         code: null,
         value: null,
-        type: "percent"
+        type: "cost"
       }
     };
   },
@@ -97,51 +102,52 @@ export default {
     }
   },
   methods: {
-    modalToggle() {
-      if (!this.$root.showModal) {
-        this.$root.showModal = true;
-      } else {
-        this.$root.showModal = false;
-      }
-    },
     getCode() {
-       this.$http.get('/promotions/codes').then(response => {
-          this.codes = response.data
-       })
+      this.$http.get("/promotions/codes").then(response => {
+        this.codes = response.data;
+      });
     },
     createCode() {
-      this.$http.post("/promotions/codes", {
-         code: this.form.code,
-         value: this.form.value,
-         type: this.form.type,
-      }).then(
-        () => {
-          this.$root.showModal = false;
-          this.form = {
-            code: null,
-            discount: null,
-            type: "percent"
-          };
-          toastr.success("เพิ่มโค๊ดส่วนลดแล้ว");
-        },
-        () => {
-          toastr.error("เกิดข้อผิดพลาด");
-        }
-      );
+      this.$http
+        .post("/promotions/codes", {
+          code: this.form.code,
+          value: this.form.value,
+          type: this.form.type
+        })
+        .then(
+          response => {
+            this.$root.showModal = false;
+            let code = this.form
+            Object.assign(code, response.data)
+            this.form = {
+              code: null,
+              discount: null,
+              type: "percent"
+            };
+            this.codes.push(code)
+            toastr.success("เพิ่มโค๊ดส่วนลดแล้ว");
+          },
+          error => {
+            toastr.error(error.response.data);
+          }
+        );
     },
     removeCode(id, index) {
-       if(confirm('ลบโค๊ดส่วนลดนี้?')) {
-         this.$http.delete('/promotions/codes/' + id).then(() => {
-            this.codes.splice(index, 1)
+      if (confirm("ลบโค๊ดส่วนลดนี้?")) {
+        this.$http.delete("/promotions/codes/" + id).then(
+          () => {
+            this.codes.splice(index, 1);
             toastr.success("ลบโค๊ดส่วนลดแล้ว");
-         }, () => {
+          },
+          () => {
             toastr.error("เกิดข้อผิดพลาด");
-         })
-       }
+          }
+        );
+      }
     }
   },
   created() {
-     this.getCode()
+    this.getCode();
   }
 };
 </script>
