@@ -39,8 +39,7 @@
               v-show="removeButton"
             ></button>
             <button
-              class="btn-flat secondary"
-              style="padding:0;margin:0"
+              class="btn-flat secondary no-margin no-padding"
               type="button"
               @click="$emit('remove-discount', Object.assign(item, {index: index}))"
               v-show="removeDiscount"

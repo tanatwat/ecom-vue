@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <div class="columns">
       <div class="column is-full">
         <div class="tab">
