@@ -3,6 +3,11 @@
     <div :class="`product-${view}`">
       <div class="product-card" v-for="(item, index) in products">
         <div class="product-img-wrapper">
+          <span
+            class="stock-status fas fa-circle"
+            :class="item.stock < 1 ? 'unavailable' : 'available'"
+            v-show="showStock"
+          ></span>
           <img
             :src="'https://s3-ap-southeast-1.amazonaws.com/images.peach/thumbnail/' + item.thumbnail"
             alt
@@ -24,6 +29,11 @@
                 class="has-text-success"
               >{{ $number.format(item.discount_price) + ' บาท' }}</span>
             </p>
+            <p
+              class="product-detail"
+              :class="item.stock >= 1 ? 'font-success' : 'font-error'"
+              v-show="showStock"
+            >{{ item.stock >= 1 ? `มีสินค้า : ${item.stock}` : 'สินค้าหมด' }}</p>
           </div>
           <div class="product-action-wrapper" v-if="actionBar">
             <button
@@ -61,12 +71,16 @@ export default {
       type: Array,
       required: true
     },
+    showStock: {
+      type: Boolean,
+      default: false
+    },
     removeOptions: {
       type: Object,
       default: () => {
         return {
-          success: 'ลบสินค้าแล้ว',
-          confirm: 'คุณต้องการลบสินค้านี้?'
+          success: "ลบสินค้าแล้ว",
+          confirm: "คุณต้องการลบสินค้านี้?"
         };
       }
     },
@@ -81,9 +95,20 @@ export default {
     },
     removeDiscount: {
       default: false
-    },
+    }
   },
   methods: {
+    stockCalc(item, index) {
+      if (item.choice.length) {
+        var sum = _.sumBy(item.choice, function(o) {
+          return o.qty;
+        });
+        this.products[index].stock = sum
+        return sum;
+      } else {
+        return item.stock;
+      }
+    },
     saleCalc(price, discount) {
       var val = (price - discount) / ((price + discount) / 2);
       var result = val * 100;
@@ -91,7 +116,7 @@ export default {
     },
     remove(uid, index) {
       if (confirm(this.removeOptions.confirm)) {
-        this.$http.delete('/products/' + uid).then(
+        this.$http.delete("/products/" + uid).then(
           () => {
             this.$parent.products.splice(index, 1);
             toastr.success(this.removeOptions.success);

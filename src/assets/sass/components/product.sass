@@ -26,11 +26,13 @@ $height: 200px
     > *
        max-width: $width
 
-.product-img-wrapper > img
-  width: 100%
-  height: 100%
-  max-height: $m-height
-  object-fit: contain
+.product-img-wrapper 
+  position: relative
+  > img
+    width: 100%
+    height: 100%
+    max-height: $m-height
+    object-fit: contain
 
 .product-card
   position: relative
@@ -89,6 +91,23 @@ $height: 200px
     > *
       padding: 5px 0 !important
       margin: 0 10px
+
+.product-grid
+  span.stock-status
+    top: 10px
+    left: 8px
+.product-row
+  span.stock-status
+    top: 5px
+    left: 5px
+
+span.stock-status
+  font-size: .8rem
+  position: absolute
+  &.unavailable
+    color: #ef224b
+  &.available
+    color: #6fcc38
 
 @media(min-width: 768px)
   .product-img-wrapper img
