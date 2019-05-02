@@ -162,6 +162,7 @@ export default {
         max: null,
         min: null,
         dc: this.includeDiscount ? null : false,
+        except: this.parentData.component == 'showcase' ? JSON.stringify(this.parentData.query) : null,
         page: 1
       },
       view: this.$parent.view
@@ -183,6 +184,15 @@ export default {
     includeDiscount: {
       type: Boolean,
       default: true
+    },
+    parentData: {
+      type: Object,
+      default:() => {
+        return {
+          component: null,
+          query: null
+        }
+      }
     },
     url: {
       default: '/get/products'
@@ -286,7 +296,7 @@ export default {
   },
   created() {
     this.getCategory();
-    this.search(1);
+    this.search(1)
   }
 };
 </script>

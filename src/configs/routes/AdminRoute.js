@@ -93,7 +93,7 @@ export default [
         component: Showcase,
       },
       {
-        path: 'showcase/:showcase',
+        path: 'showcase/:id',
         component: ShowcaseEdit,
       },
       {

@@ -1,87 +1,153 @@
 <template>
   <div>
-    <div class="page-title">
-      <h1 class="page-title-heading">Title</h1><a href="#" class="button secondary w-button">ย้อนกลับ</a></div>
-    <div class="box">
-      <h3 class="section-heading">ชื่อตู้แสดงสินค้า</h3>
-      <div class="w-row">
-        <div class="left-column w-col w-col-6">
-          <div class="w-form">
-            <form id="email-form" name="email-form" data-name="Email Form">
-              <div class="form-group"><input type="text" id="name-2" name="name-2" data-name="Name 2" maxlength="256" class="form-input w-input"></div>
-            </form>
-            <div class="w-form-done">
-              <div>Thank you! Your submission has been received!</div>
-            </div>
-            <div class="w-form-fail">
-              <div>Oops! Something went wrong while submitting the form.</div>
-            </div>
-          </div>
-          <div class="text-right"><a href="#" class="button submit w-button">ยืนยัน</a></div>
-        </div>
-        <div class="right-column w-col w-col-6"></div>
+    <section style="margin-bottom:30px">
+      <label class="label is-medium">ชื่อคอลเล็คชั่น</label>
+      <div class="field is-grouped">
+        <p class="control">
+          <input class="input" type="text" placeholder="Find a repository" v-model="showcase.name">
+        </p>
+        <p class="control">
+          <button :disabled="!showcase.name" class="btn group success" @click="updateName">แก้ไข</button>
+        </p>
       </div>
-    </div>
-    <div class="box">
-      <h3 class="section-heading">สินค้าภายในตู้</h3>
-      <ul class="no-style-list">
-        <li class="product-list"><img src="https://d3e54v103j8qbb.cloudfront.net/img/image-placeholder.svg" alt="" class="product-list-img">
-          <div class="product-details-wrapper">
-            <div class="product-link">Product Name</div>
-            <div class="product-detail">Price</div>
-            <div class="product-detail">Button</div>
-          </div>
-        </li>
-      </ul>
-    </div><a href="#" class="button primary w-button">ตัวเลือกค้นหา</a>
-    <div class="filter">
-      <div class="w-form">
-        <form id="email-form" name="email-form" data-name="Email Form">
-          <div class="w-row">
-            <div class="left-column w-col w-col-6">
-              <div class="form-group"><label for="name-3" class="form-label">Label</label><input type="text" id="name-2" name="name-2" data-name="Name 2" maxlength="256" class="form-input w-input"></div>
-            </div>
-            <div class="right-column w-col w-col-6">
-              <div class="form-group"><label for="name-3" class="form-label">Label</label><input type="text" id="name-2" name="name-2" data-name="Name 2" maxlength="256" class="form-input w-input"></div>
-            </div>
-          </div>
-          <div class="w-row">
-            <div class="left-column w-col w-col-6">
-              <div class="form-group"><label for="name-3" class="form-label">Label</label><input type="text" id="name-2" name="name-2" data-name="Name 2" maxlength="256" class="form-input w-input"></div>
-            </div>
-            <div class="right-column w-col w-col-6">
-              <div class="form-group"><label for="name-3" class="form-label">Label</label><input type="text" id="name-2" name="name-2" data-name="Name 2" maxlength="256" class="form-input w-input"></div>
-            </div>
-          </div>
-        </form>
-        <div class="w-form-done">
-          <div>Thank you! Your submission has been received!</div>
-        </div>
-        <div class="w-form-fail">
-          <div>Oops! Something went wrong while submitting the form.</div>
-        </div>
+    </section>
+
+    <p></p>
+    <section>
+      <h2 class="is-size-4 section-heading" :class="{'no-margin' : showcase_products.length}">สินค้าในคอลเล็คชั่น</h2>
+      <products
+        view="row"
+        :products="showcase_products"
+        :action-bar="true"
+        :action-button="showcaseProp"
+        v-on:action-active="removeFromShowcase($event)"
+      ></products>
+      <div class="content text-center" v-show="!showcase_products.length">
+        <h4>ไม่มีสินค้าในคอลเล็คชั่น</h4>
       </div>
-      <div class="text-right"><a href="#" class="button secondary w-button">ล้างการค้นหา</a><a href="#" class="button submit w-button">ค้นหา</a></div>
-    </div>
-    <div class="box">
-      <h3 class="section-heading">สินค้าภายในร้าน</h3>
-      <ul class="no-style-list">
-        <li class="product-list"><img src="https://d3e54v103j8qbb.cloudfront.net/img/image-placeholder.svg" alt="" class="product-list-img">
-          <div class="product-details-wrapper">
-            <div class="product-link">Product Name</div>
-            <div class="product-detail">Price</div>
-            <div class="product-detail">Button</div>
-          </div>
-        </li>
-      </ul>
-    </div>
+    </section>
+
+    <section v-show="products.length">
+      <h2 class="content is-size-4 section-heading">สินค้าในร้าน</h2>
+      <search-filter
+        v-on:search="assignData($event)"
+        v-on:changeView="view = $event"
+        :parent-data="parentData"
+        v-if="loaded"
+      ></search-filter>
+      <pagination :meta="meta"></pagination>
+      <products
+        :products="products"
+        :view="view"
+        :action-bar="true"
+        :action-button="productsProp"
+        v-on:action-active="addToShowcase($event)"
+      ></products>
+      <div class="content text-center" v-show="!products.length">
+        <h4>ไม่มีสินค้า</h4>
+      </div>
+      <pagination :meta="meta"></pagination>
+    </section>
   </div>
 </template>
 
 <script>
 export default {
-}
-</script>
+  data() {
+    return {
+      showcase: {},
+      showcase_products: [],
+      productsList: [],
+      products: [],
+      meta: [],
+      showcaseProp: {
+        enabled: true,
+        title: "ลบออกจากคอลเล็คชั่น"
+      },
+      productsProp: {
+        enabled: true,
+        title: "ใส่ในคอลเล็คชั่น"
+      },
+      view: "row",
+      queryString: {},
+      loaded: false
+    };
+  },
+  methods: {
+    assignData(data) {
+      this.products = data.products;
+      this.meta = data.meta;
+    },
 
-<style lang="css">
-</style>
+    get() {
+      this.$http.get("/showcases/" + this.$route.params.id).then(response => {
+        this.showcase = response.data.showcase[0];
+        this.showcase_products = response.data.products;
+        this.productsList = response.data.showcase[0].products;
+        this.parentData = {
+          component: "showcase",
+          query: this.productsList
+        };
+        this.loaded = true
+      });
+    },
+
+    addToShowcase(product) {
+      if (confirm("เพิ่มสินค้านี้ในคอลเล็คชั่น?")) {
+        let newList = this.productsList.concat([product.id]);
+        this.$http
+          .put("/showcases/" + this.$route.params.id + "/update_product", {
+            products: JSON.stringify(newList)
+          })
+          .then(
+            () => {
+              this.productsList = newList;
+              this.showcase_products.push(product);
+              this.products.splice(product.index, 1);
+              toastr.success("เพิ่มในคอลเล็คชั่นแล้ว");
+            },
+            () => {
+              toastr.error("เกิดข้อผิดพลาด");
+            }
+          );
+      }
+    },
+
+    removeFromShowcase(product) {
+      if (confirm("นำสินค้านี้ออกจากคอลเล็คชั่น?")) {
+        let filtered = this.productsList.filter(function(value, index, arr) {
+          return value !== product.id;
+        });
+
+        this.$http
+          .put("/showcases/" + this.$route.params.id + "/update_product", {
+            products: JSON.stringify(filtered)
+          })
+          .then(
+            () => {
+              this.productsList = filtered;
+              this.showcase_products.splice(product.index, 1);
+              this.products.push(product);
+              toastr.success("ลบออกจากคอลเล็คชั่นแล้ว");
+            },
+            () => {
+              toastr.error("เกิดข้อผิดพลาด");
+            }
+          );
+      }
+    },
+    updateName() {
+      this.$http
+        .put("/showcases/" + this.$route.params.id + "/update_name", {
+          name: this.showcase.name
+        })
+        .then(() => {
+          toastr.success("แก้ไขชื่อคอลเล็คชั่นแล้ว");
+        });
+    }
+  },
+  created() {
+    this.get();
+  }
+};
+</script>

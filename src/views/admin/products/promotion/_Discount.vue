@@ -6,9 +6,9 @@
       <products
         view="row"
         :products="discountProducts"
-        v-on:remove-discount="canclePromotion($event)"
         :action-bar="true"
-        :remove-discount="true"
+        :action-button="componentProp"
+        v-on:action-active="canclePromotion($event)"
       ></products>
     </div>
 
@@ -28,7 +28,7 @@
       <pagination :meta="meta"></pagination>
     </div>
     <div class="content text-center" v-show="!products.length">
-      <h3>ไม่มีสินค้า</h3>
+      <h4>ไม่มีสินค้า</h4>
     </div>
     <modal>
       <header slot="header" class="modal-card-head">
@@ -93,7 +93,11 @@ export default {
       meta: {},
       discount: null,
       data: [],
-      view: "row"
+      view: "row",
+      componentProp: {
+        enabled: true,
+        title: 'ยกเลิกโปรโมชั่น'
+      }
     };
   },
   computed: {

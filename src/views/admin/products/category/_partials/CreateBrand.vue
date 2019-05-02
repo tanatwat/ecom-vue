@@ -45,17 +45,15 @@
                 <input
                   required
                   class="input"
-                  name="code"
+                  name="brand"
                   type="text"
                   v-model="form.brand"
                   placeholder="ชื่อแบรนด์"
-                  max="20"
-                  min="1"
                   v-validate="'required'"
-                  data-vv-as="โค๊ด"
+                  data-vv-as="แบรนด์"
                 >
               </p>
-              <p class="help is-danger text-center">{{ errors.first('code') }}</p>
+              <p class="help is-danger text-center">{{ errors.first('brand') }}</p>
             </div>
           </div>
         </section>

@@ -51,9 +51,9 @@
             <button
               class="btn-flat secondary no-margin no-padding"
               type="button"
-              @click="$emit('remove-discount', Object.assign(item, {index: index}))"
-              v-show="removeDiscount"
-            >ยกเลิกโปรโมชั่น</button>
+              @click="$emit('action-active', Object.assign(item, {index: index}))"
+              v-show="actionButton.enabled"
+            >{{ actionButton.title }}</button>
           </div>
         </div>
       </div>
@@ -93,8 +93,14 @@ export default {
     removeButton: {
       default: false
     },
-    removeDiscount: {
-      default: false
+    actionButton: {
+      type: Object,
+      default:() => {
+        return {
+          enabled: false,
+          title: null
+        }
+      }
     }
   },
   methods: {

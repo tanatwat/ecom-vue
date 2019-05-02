@@ -24,7 +24,7 @@
       v-show="products.length"
     ></pagination>
     <div class="content text-center" v-show="!products.length">
-       <h3>ไม่มีสินค้า</h3>
+       <h4>ไม่มีสินค้า</h4>
     </div>
   </div>
 </template>
