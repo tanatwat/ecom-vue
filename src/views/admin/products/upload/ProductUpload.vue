@@ -176,7 +176,8 @@ export default {
         types: []
       },
       image_preview: null,
-      steps: 1
+      steps: 1,
+      filesCount: 0
     };
   },
   methods: {
@@ -197,7 +198,9 @@ export default {
           dictRemoveFile: "×",
           dictCancelUpload: "×",
           headers: {
-            Authorization: `Bearer ${localStorage.token}`
+            Authorization: `Bearer ${localStorage.token}`,
+            Client: localStorage.client,
+            FilesCount: `${self.filesCount}`
           },
           init: function() {
             this.on("addedfile", function(file) {
@@ -207,6 +210,9 @@ export default {
               if (file.size > self.$root.photoSize.file) {
                 alert("ขนาดรูปต้องไม่เกินรูปละ" + self.$root.photoSize.string);
                 this.removeFile(file);
+              }
+              if (this.files.length >= 1) {
+                self.filesCount = this.files.length;
               }
             });
           },
@@ -236,7 +242,7 @@ export default {
             });
             this.removeFile(this.files[0]);
             self.$Progress.finish();
-            document.location.href = "/admin/products/upload";
+            document.location.reload()
             self.$root.loading = false;
           },
           error: function() {
@@ -255,6 +261,7 @@ export default {
         if (this.errors.any()) {
           alert("โปรดแก้ไขแบบฟอร์มก่อน");
         } else {
+          self.image.options.headers.FilesCount = this.filesCount;
           self.image.processQueue();
         }
       }

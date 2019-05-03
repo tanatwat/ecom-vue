@@ -35,7 +35,7 @@
               v-show="showStock"
             >{{ item.stock >= 1 ? `มีสินค้า : ${item.stock}` : 'สินค้าหมด' }}</p>
           </div>
-          <div class="product-action-wrapper" v-if="actionBar">
+          <div class="product-action-wrapper" :class="actionBarClass" v-if="actionBar">
             <button
               class="btn-icon primary fas fa-pen"
               type="button"
@@ -86,6 +86,9 @@ export default {
     },
     actionBar: {
       default: false
+    },
+    actionBarClass: {
+      default: null
     },
     editButton: {
       default: false

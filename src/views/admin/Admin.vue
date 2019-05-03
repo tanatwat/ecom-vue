@@ -19,14 +19,14 @@
 		<i class="menu-title">จัดการหน้าร้าน</i>
 		<div>
 			<router-link to="/admin/banner"><i class="fas fa-ad"></i>แบนเนอร์</router-link>
-			<router-link to="/admin/showcase"><i class="fas fa-store"></i>ตู้แสดงสินค้า</router-link>
+			<router-link to="/admin/showcase"><i class="fas fa-table"></i>คอลเล็คชั่น</router-link>
 			<router-link to="/admin/settings"><i class="fas fa-user"></i>ข้อมูลร้าน</router-link>
 		</div>
 		<hr>
 		<router-link to="/admin/orders"><i class="fas fa-list"></i>รายการสั่งซื้อ</router-link>
 		<router-link to="/admin/payment"><i class="fas fa-dollar-sign"></i>ช่องทางชำระเงิน</router-link>
 		<router-link to="/admin/shipping"><i class="fas fa-truck"></i>การจัดส่ง</router-link>
-		<a @click.prevent="logout"><i class="fas fa-door"></i>ออกจากระบบ</a>
+		<a @click.prevent="logout"><i class="fas fa-door-open"></i>ออกจากระบบ</a>
 
 	</nav>
 	<nav class="mobile-menu">

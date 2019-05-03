@@ -40,6 +40,7 @@
         :products="products"
         :view="view"
         :action-bar="true"
+        action-bar-class="centered"
         :action-button="productsProp"
         v-on:action-active="addToShowcase($event)"
       ></products>

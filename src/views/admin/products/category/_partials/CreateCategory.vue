@@ -190,11 +190,6 @@
           </div>
         </div>
         <div class="collection-action-bar">
-          <button
-            class="btn-flat primary fas"
-            :class="formVisible !== index ? 'fa-pen' : 'fa-times active'"
-            @click="toggleForm(index)"
-          ></button>
           <!-- <router-link :to="{ name: 'categoryEdit', params: { category: category.id }}" class="btn-icon primary fas fa-pen"></router-link> -->
           <button
             class="btn-flat primary fas fa-trash-alt"

@@ -9,7 +9,9 @@
 
     <div class="collection-list column" v-if="showcases.length">
       <div v-for="(showcase, index) in showcases">
-        <div class="collection-title" v-show="formVisible !== index">{{ showcase.name }}</div>
+        <div class="collection-title">{{ showcase.name }}</div>
+        <div class="font-success" v-show="showcase.products.length">มีสินค้า&nbsp;{{ showcase.products.length }}&nbsp;ชิ้น</div>
+        <div v-show="!showcase.products.length">ไม่มีสินค้า</div>
             <div class="field has-addons no-margin" v-show="formVisible == index">
               <div class="control is-expanded">
                 <input class="input" type="text" placeholder="ชื่อแบรนด์" v-model="form.name">
@@ -98,7 +100,7 @@ export default {
             };
             this.showcases.push(showcase);
             this.$root.showModal = false
-            toastr.success("เพิ่มตู้แสดงสินค้าแล้ว");
+            toastr.success("เพิ่มคอลเล็คชั่นแล้ว");
           },
           response => {
             toastr.error("เกิดข้อผิดพลาด");
@@ -112,7 +114,7 @@ export default {
       if (confirm("คุณแน่ใจหรือไม่ว่าจะลบ?")) {
         this.$http.delete("/showcases/" + id).then(() => {
           this.showcases.splice(index, 1);
-          toastr.success("ลบแบรนด์สินค้าแล้ว");
+          toastr.success("ลบคอลเล็คชั่นแล้ว");
         });
       }
     }
