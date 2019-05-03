@@ -10,10 +10,10 @@
         >สินค้านี้ไม่มีรูปภาพ</p>
         <div class="product-grid" style="padding:15px 0" v-else>
           <div class="image-preview" v-for="(photo, index) in photos">
-            <img :src="photoUrl + photo.filename">
+            <img :src="photoUrl + photo">
             <a
               class="btn error top-right fas fa-trash-alt"
-              @click.prevent="remove(photo.filename, index)"
+              @click.prevent="remove(photo, index)"
               v-show="photos.length > 1"
             ></a>
           </div>
@@ -73,6 +73,11 @@ export default {
           addRemoveLinks: true,
           dictRemoveFile: "×",
           dictCancelUpload: "×",
+          headers: {
+            Authorization: `Bearer ${localStorage.token}`,
+            Client: localStorage.client,
+            FilesCount: `${self.filesCount}`
+          },
           init: function() {
             this.on("addedfile", function(file) {
               if (
@@ -94,6 +99,9 @@ export default {
               }
             });
           },
+          sendingmultiple: function(data, xhr, formData) {
+            formData.append("photos", self.photos);
+          },
           processingmultiple: function() {
             self.$Progress.start();
             self.$root.loading = true;
@@ -106,7 +114,7 @@ export default {
             self.$Progress.finish();
             self.$root.loading = false;
             for (var photo of response.values()) {
-              self.photos.push({ filename: photo.filename });
+              self.photos.push(photo );
             }
           },
           error: function() {
@@ -124,9 +132,13 @@ export default {
     },
     remove(filename, index) {
       if (confirm("ลบรูปภาพนี้?")) {
+        let filtered = this.photos.filter(function(value, index, arr) {
+          return value !== filename;
+        });
         this.$http
           .put("product/" + this.$route.params.uid + "/edit/photo/delete", {
-            photo: filename
+            photo: filename,
+            files: filtered
           })
           .then(
             () => {

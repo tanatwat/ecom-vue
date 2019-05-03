@@ -15,7 +15,7 @@
               <div class="dz-message" data-dz-message>
                 <span>คลิกเพื่อเลือกรูปที่จะอัพโหลด</span>
                 <br>
-                <span>อัพโหลดได้ไม่เกิน 7 รูป ไม่เกิน รูปละ 1 MB</span>
+                <span>อัพโหลดได้ไม่เกิน 5 รูป ไม่เกิน รูปละ 1 MB</span>
               </div>
             </div>
           </div>

@@ -19,7 +19,7 @@
   <category :categories="properties.categories" v-on:category-change="updateCategory"></category>
   <brand :brands="properties.brands" v-on:brand-change="updateBrand"></brand>
   <photo :photos="properties.photos"></photo>
-  <choice :data="JSON.parse(product.choice)"></choice>
+  <!-- <choice :data="JSON.parse(product.choice)"></choice> -->
 </div>
 </template>
 
